@@ -3,8 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <title>Clickbait detection</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/bulma.css' %}" />
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $("#input-image").change(function(){
+                $('#file-name').html($('#input-image').val());
+                //$("#preview").attr({ "src": $('#input-image').val() });
+            });
+        });
+</script>
 </head>
 <body>
-Clickbait
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://bulma.io">
+                <h2 class="title">ClickBait Detection</h2>
+            </a>
+
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item">
+                    Home
+                </a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title has-text-centered">Predict texts' clickbaitness</h1>
+            <h2 class="subtitle">
+                <div class="card">
+                    <header class="card-header is-primary notification">
+                        <p class="card-header-title has-text-white">
+                            Check short texts
+                        </p>
+                        <a href="#" class="card-header-icon" aria-label="more options">
+                      <span class="icon">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                        </a>
+                    </header>
+                    <div class="card-content">
+                        <div class="content has-text-centered">
+                            <form name="text" method="post" action="">
+                            {% csrf_token %}
+                                <div class="columns is-mobile">
+                                    <div class="column">Enter content</div>
+                                    <div class="column is-two-thirds">
+                                        <div class="control">
+                                            <input  name="text-input" 
+                                                    class="input is-primary" 
+                                                    id="text-input" 
+                                                    placeholder="eg. This is gonna be so awesome.">
+                                        </div>
+                                    </div>
+                                </div>
+                                <input class="button is-primary" type="submit" value="Predict"/>
+                            </form>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <div class="card-footer-item">Short texts will have better results.</div>
+                    </footer>
+                </div>
+                <br/>
+                <div class="card">
+                    <header class="card-header notification is-primary">
+                        <p class="card-header-title has-text-white">
+                            Check short texts from image
+                        </p>
+                        <a href="#" class="card-header-icon" aria-label="more options">
+                      <span class="icon">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                        </a>
+                    </header>
+                    <div class="card-content">
+                        <div class="content has-text-centered">
+                            <form name="image" action="" method="post">
+                            {% csrf_token %}
+                                <div class="columns is-mobile">
+                                    <div class="column">Browse Image</div>
+                                    <div class="column is-two-thirds">
+                                        <div class="file has-name">
+                                            <label class="file-label">
+                                                <input class="file-input" id="input-image" type="file" name="file" accept=".png, .jpg">
+                                                <span class="file-cta">
+                                            <span class="file-icon">
+                                                <i class="fas fa-upload"></i>
+                                            </span>
+                                            <span class="file-label">
+                                                Choose a file…
+                                            </span>
+                                            </span>
+                                            <span id="file-name" class="file-name">
+                                                File not selected
+                                            </span>
+                                            </label>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                    <input type="submit" class="button is-primary " value="Check">
+
+                            </form>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <div class="has-text-centered card-footer-item">Image will be converted to text for analysis</div>
+                    </footer>
+                </div>
+            </h2>
+        </div>
+    </section>
+    {% if msg == 'output' %}
+    <div id="pop-up" class="modal is-active" >
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <article class="message is-primary">
+                <div class="message-header">
+                    <p>Output</p>
+                </div>
+                <div class="message-body">
+                   <div class="title">
+                        Text: <h4 class="output">{{input}}</h4><br/>
+                        Predicted: <h4 class="output">{{output}}</h4><br/>
+                        Score: <h4 class="output">{{score}}</h4> 
+                    </div>
+                </div>
+            </article>
+            
+           
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    {% endif %}
+
+    <footer class="footer" style="padding: 50px">
+        <div class=" has-text-centered">
+            <p>
+                <strong>Research project</strong> on <a href="">Clickbait detection</a>.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get all "navbar-burger" elements
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+
+                    // Get the target from the "data-target" attribute
+                    const target = el.dataset.target;
+            const $target = document.getElementById(target);
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+
+        });
+        });
+        }
+
+        });
+        var modal = document.querySelector('.modal'); 
+        modal.querySelector('.modal-background').addEventListener('click', function(e) {
+            modal.classList.remove('is-active');
+            e.preventDefault();
+        });
+        modal.querySelector('.modal-close').addEventListener('click', function(e) {
+            modal.classList.remove('is-active');
+            e.preventDefault();
+        });
+        document.querySelector('#input-image'). addEventListener('change', function(e) {
+            alert('texts')
+            e.preventDefault();
+        });
+    </script>
 </body>
 </html>
