@@ -131,7 +131,7 @@ STATICFILES_DIRS = (
 )
 
 ROOT_HOSTCONF = 'IsItFake.hosts'
-DEFAULT_HOST = 'www'
+DEFAULT_HOST = 'clickbait'
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "IsItFake/vision.json"
 SERVICE = build("customsearch", "v1",
