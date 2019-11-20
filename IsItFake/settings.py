@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_hosts'
+    'django_hosts',
+    'corsheaders',
 ]
 
 MY_APPS = [
@@ -140,7 +141,7 @@ SERVICE = build("customsearch", "v1",
 
 CSRF_TRUSTED_ORIGINS = ['clickbait.isitfake.co.in']
 CORS_ORIGIN_WHITELIST = (
-    'clickbait.isitfake.co.in',
-    'isitfake.co.in',
-    'www.isitfake.co.in'
+    'https://clickbait.isitfake.co.in',
+    'https://isitfake.co.in',
+    'https://www.isitfake.co.in'
 )
