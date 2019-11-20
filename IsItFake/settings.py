@@ -136,3 +136,11 @@ DEFAULT_HOST = 'clickbait'
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "IsItFake/vision.json"
 SERVICE = build("customsearch", "v1",
                 developerKey="AIzaSyAaJ8-PEOVH4AiNEZ2KcS24h48tPIkrmdY")
+
+
+CSRF_TRUSTED_ORIGINS = ['clickbait.isitfake.co.in']
+CORS_ORIGIN_WHITELIST = (
+    'clickbait.isitfake.co.in',
+    'isitfake.co.in',
+    'www.isitfake.co.in'
+)
