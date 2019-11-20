@@ -42,6 +42,9 @@ INSTALLED_APPS = [
 MY_APPS = [
     'www',
     'clickbait',
+    'fakenews',
+    'quotexaminer',
+    'deepfakes'
 ]
 
 INSTALLED_APPS = INSTALLED_APPS + MY_APPS
