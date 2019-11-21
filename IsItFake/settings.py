@@ -131,6 +131,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
+MEDIA_URL = os.path.join(BASE_DIR, "media/")
+
 ROOT_HOSTCONF = 'IsItFake.hosts'
 DEFAULT_HOST = 'clickbait'
 

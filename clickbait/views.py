@@ -1,12 +1,26 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-import os
 import io
-from google.cloud import vision
-from django.core.files.storage import FileSystemStorage
+import numpy as np
 from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render
+from google.cloud import vision
+from keras.models import load_model
+from keras_preprocessing.sequence import pad_sequences
+from keras_preprocessing.text import Tokenizer
 
 template = 'clickbait/index.html'
+model = load_model(settings.MEDIA_URL + 'clickbait/host.h5')
+MAX_VOCAB_SIZE = 20000
+MAX_SEQUENCE_LENGTH = 100
+
+
+def check_clickbaitness(text):
+    input_text = np.array([text])
+    tokenizer_predict = Tokenizer(num_words=MAX_VOCAB_SIZE)
+    tokenizer_predict.fit_on_texts(input_text)
+    sequences = tokenizer_predict.texts_to_sequences(input_text)
+    data_predict = pad_sequences(sequences, maxlen=MAX_SEQUENCE_LENGTH)
+    return model.predict(data_predict)[0][0]
 
 
 def text_detection(path):
@@ -32,8 +46,9 @@ def home(request):
                 'msg': 'output',
                 'input': text
             }
-            context['score'] = '58%'
-            context['output'] = "Clickbait"
+            score = check_clickbaitness(text)
+            context['score'] = '%.5f' % score
+            context['output'] = 'Text is ' + ('clickbait' if score >= 0.5 else 'not a clickbait')
         except Exception as e:
             print(str(e))
             context['error'] = str(e)
@@ -49,8 +64,9 @@ def home(request):
                 'image': True,
                 'fetched_output': fetched
             }
-            context['score'] = '58%'
-            context['output'] = "Clickbait"
+            score = check_clickbaitness(fetched)
+            context['score'] = '%.5f' % score
+            context['output'] = 'Image content is ' + ('clickbait' if score >= 0.5 else 'not a clickbait')
         except Exception as e:
             print(str(e))
             context['error'] = str(e)
