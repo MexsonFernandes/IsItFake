@@ -71,3 +71,8 @@ def home(request):
             print(str(e))
             context['error'] = str(e)
     return render(request, template, context)
+
+
+def graph(request):
+    input_text = request.GET.get('text', '')
+    return render(request, 'clickbait/graph.html', {'input': input_text})

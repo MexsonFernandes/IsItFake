@@ -16,7 +16,7 @@
                 //$("#preview").attr({ "src": $('#input-image').val() });
             });
         });
-</script>
+    </script>
 </head>
 <body>
     <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -151,12 +151,26 @@
                         Fetched Text: <h4 class="output">{{fetched_output}}</h4><br/>
                         Predicted: <h4 class="output">{{output}}</h4><br/>
                         Score: <h4 class="output">{{score}}</h4>
+                        <div class="has-text-centered">
+                            <button class="button is-primary">
+                                <a style="text-decoration: none;" href="graph?text={{fetched_output}}">
+                                    Graph Analysis
+                                </a>
+                            </button>
+                        </div>
                     </div>
                     {% else %}
                    <div class="title">
                         Text: <h4 class="output">{{input}}</h4><br/>
                         Predicted: <h4 class="output">{{output}}</h4><br/>
                         Score: <h4 class="output">{{score}}</h4>
+                        <div class="has-text-centered">
+                            <button class="button is-primary">
+                                <a style="text-decoration: none;" href="graph?text={{input}}">
+                                    Graph Analysis
+                                </a>
+                            </button>
+                        </div>
                     </div>
                     {% endif %}
                 </div>
