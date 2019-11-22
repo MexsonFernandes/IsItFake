@@ -1,4 +1,5 @@
 import io
+import pickle
 import numpy as np
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
@@ -7,20 +8,31 @@ from google.cloud import vision
 from keras.models import load_model
 from keras_preprocessing.sequence import pad_sequences
 from keras_preprocessing.text import Tokenizer
+from numpy.core._multiarray_umath import ndarray
 
 template = 'clickbait/index.html'
-model = load_model(settings.MEDIA_URL + 'clickbait/host.h5')
+model_cnn = load_model(settings.MEDIA_URL + 'clickbait/host.h5')
 MAX_VOCAB_SIZE = 20000
 MAX_SEQUENCE_LENGTH = 100
+# load model
+model = pickle.load(open(settings.MEDIA_URL + 'clickbait/linearSVC.sav', 'rb'))
+# load vec
+tfidf = pickle.load(open(settings.MEDIA_URL + 'clickbait/vec_result.pkl', "rb" ) )
 
 
-def check_clickbaitness(text):
+def check_clickbaitness_cnn_lstm(text):
     input_text = np.array([text])
     tokenizer_predict = Tokenizer(num_words=MAX_VOCAB_SIZE)
     tokenizer_predict.fit_on_texts(input_text)
     sequences = tokenizer_predict.texts_to_sequences(input_text)
     data_predict = pad_sequences(sequences, maxlen=MAX_SEQUENCE_LENGTH)
-    return model.predict(data_predict)[0][0]
+    return model_cnn.predict(data_predict)[0][0]
+
+
+def check_clickbaitness(text):
+    content = np.array([text])
+    predict_vec = tfidf.transform(content)
+    return model.predict(predict_vec)[0], model.predict_proba(predict_vec)[0][0]
 
 
 def text_detection(path):
@@ -46,9 +58,9 @@ def home(request):
                 'msg': 'output',
                 'input': text
             }
-            score = check_clickbaitness(text)
+            pred, score = check_clickbaitness(text)
             context['score'] = '%.5f' % score
-            context['output'] = 'Text is ' + ('clickbait' if score >= 0.5 else 'not a clickbait')
+            context['output'] = 'Text is ' + ('clickbait' if pred == 1 else 'not a clickbait')
         except Exception as e:
             print(str(e))
             context['error'] = str(e)
@@ -64,9 +76,9 @@ def home(request):
                 'image': True,
                 'fetched_output': fetched
             }
-            score = check_clickbaitness(fetched)
+            pred, score = check_clickbaitness(fetched)
             context['score'] = '%.5f' % score
-            context['output'] = 'Image content is ' + ('clickbait' if score >= 0.5 else 'not a clickbait')
+            context['output'] = 'Image content is ' + ('clickbait' if pred == 1 else 'not a clickbait')
         except Exception as e:
             print(str(e))
             context['error'] = str(e)
