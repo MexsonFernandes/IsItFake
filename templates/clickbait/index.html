@@ -19,27 +19,31 @@
     </script>
 </head>
 <body>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
+    <style>
+        body {
+            background-image: url("{% static 'clickbait/back.png' %}");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+        }
+    </style>
+    <nav class="navbar  " role="navigation" aria-label="main navigation">
+        <div class="navbar-brand has-text-centered">
 
             <a class="navbar-item" href="">
-                <h2 class="title">ClickBait Detection</h2>
+                <h2 class="title has-text-centered">ClickBait Detection</h2>
 
             </a>
 
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
+<!--            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">-->
+<!--                <span aria-hidden="true"></span>-->
+<!--                <span aria-hidden="true"></span>-->
+<!--                <span aria-hidden="true"></span>-->
+<!--            </a>-->
         </div>
 
         <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item">
-                    Home
-                </a>
-            </div>
+
 
             <div class="navbar-end">
                 <div class="navbar-item">
@@ -50,10 +54,9 @@
 
     <section class="section">
         <div class="container">
-            <h1 class="title has-text-centered">Predict texts' clickbaitness</h1>
             <h2 class="subtitle">
                 <div class="card">
-                    <header class="card-header is-primary notification">
+                    <header class="card-header is-info notification">
                         <p class="card-header-title has-text-white">
                             Check short texts
                         </p>
@@ -72,14 +75,14 @@
                                     <div class="column is-two-thirds">
                                         <div class="control">
                                             <input  name="text-input"
-                                                    class="input is-primary"
+                                                    class="input is-info"
                                                     id="text-input"
                                                     required="required"
                                                     placeholder="eg. This is gonna be so awesome.">
                                         </div>
                                     </div>
                                 </div>
-                                <input class="button is-primary" type="submit" value="Predict"/>
+                                <input class="button is-info" type="submit" value="Predict"/>
                             </form>
                         </div>
                     </div>
@@ -89,7 +92,7 @@
                 </div>
                 <br/>
                 <div class="card">
-                    <header class="card-header notification is-primary">
+                    <header class="card-header notification is-info">
                         <p class="card-header-title has-text-white">
                             Check short texts from image
                         </p>
@@ -125,7 +128,7 @@
 
                                     </div>
                                 </div>
-                                    <input type="submit" class="button is-primary " value="Check">
+                                    <input type="submit" class="button is-info " value="Check">
 
                             </form>
                         </div>
@@ -141,7 +144,7 @@
     <div id="pop-up" class="modal is-active" >
         <div class="modal-background"></div>
         <div class="modal-content">
-            <article class="message is-primary">
+            <article class="message is-info">
                 <div class="message-header">
                     <p>Output</p>
                 </div>
@@ -152,7 +155,7 @@
                         Predicted: <h4 class="output">{{output}}</h4><br/>
                         Score: <h4 class="output">{{score}}</h4>
                         <div class="has-text-centered">
-                            <button class="button is-primary">
+                            <button class="button is-info">
                                 <a style="text-decoration: none;" href="graph?text={{fetched_output}}">
                                     Graph Analysis
                                 </a>
@@ -165,7 +168,7 @@
                         Predicted: <h4 class="output">{{output}}</h4><br/>
                         Score: <h4 class="output">{{score}}</h4>
                         <div class="has-text-centered">
-                            <button class="button is-primary">
+                            <button class="button is-info">
                                 <a style="text-decoration: none;" href="graph?text={{input}}">
                                     Graph Analysis
                                 </a>
