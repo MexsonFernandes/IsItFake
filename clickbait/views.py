@@ -8,6 +8,7 @@ from google.cloud import vision
 from keras.models import load_model
 from keras_preprocessing.sequence import pad_sequences
 from keras_preprocessing.text import Tokenizer
+import traceback
 from numpy.core._multiarray_umath import ndarray
 
 template = 'clickbait/index.html'
@@ -30,9 +31,9 @@ def check_clickbaitness_cnn_lstm(text):
 
 
 def check_clickbaitness(text):
-    content = np.array([text])
+    content = np.array([str(text)])
     predict_vec = tfidf.transform(content)
-    return model.predict(predict_vec)[0], model.predict_proba(predict_vec)[0][0]
+    return model.predict(predict_vec)[0], model.predict_proba(predict_vec)[0]
 
 
 def text_detection(path):
@@ -59,7 +60,7 @@ def home(request):
                 'input': text
             }
             pred, score = check_clickbaitness(text)
-            context['score'] = '%.5f' % score
+            context['score'] = '%.5f' % score[1] if pred == 1 else '%.5f' % score[0]
             context['output'] = 'Text is ' + ('clickbait' if pred == 1 else 'not a clickbait')
         except Exception as e:
             print(str(e))
@@ -77,10 +78,11 @@ def home(request):
                 'fetched_output': fetched
             }
             pred, score = check_clickbaitness(fetched)
-            context['score'] = '%.5f' % score
+            context['score'] = '%.5f' % score[1] if pred == 1 else '%.5f' % score[0]
             context['output'] = 'Image content is ' + ('clickbait' if pred == 1 else 'not a clickbait')
         except Exception as e:
             print(str(e))
+            traceback.print_exc()
             context['error'] = str(e)
     return render(request, template, context)
 
