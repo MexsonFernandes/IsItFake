@@ -151,6 +151,7 @@
                 <div class="message-body">
                    {% if image %}
                    <div class="title">
+                        Input image: <img src="{% static image_path %}"/>
                         Fetched Text: <h4 class="output">{{fetched_output}}</h4><br/>
                         Predicted: <h4 class="output">{{output}}</h4><br/>
                         Confidence Score: <h4 class="output">{{score}}</h4>

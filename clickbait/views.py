@@ -55,9 +55,11 @@ def home(request):
         try:
             print(request.POST)
             text = request.POST.get('text-input', '')
+            cluster = 'Revealing'
             context = {
                 'msg': 'output',
-                'input': text
+                'input': text,
+                'cluster': cluster
             }
             pred, score = check_clickbaitness(text)
             context['score'] = '%.5f' % score[1] if pred == 1 else '%.5f' % score[0]
@@ -69,13 +71,17 @@ def home(request):
         try:
             uploaded_file = request.FILES['file']
             file_obj = FileSystemStorage()
-            path = file_obj.save(settings.STATICFILES_DIRS[0] + '/clickbait/upload/' + uploaded_file.name, uploaded_file)
+            upload_path = '/clickbait/upload/' + uploaded_file.name
+            path = file_obj.save(settings.STATICFILES_DIRS[0] + upload_path , uploaded_file)
             fetched = text_detection(path)
             print(fetched)
+            cluster = 'revealing'
             context = {
                 'msg': 'output',
                 'image': True,
-                'fetched_output': fetched
+                'image_path': upload_path,
+                'fetched_output': fetched,
+                'cluster': cluster
             }
             pred, score = check_clickbaitness(fetched)
             context['score'] = '%.5f' % score[1] if pred == 1 else '%.5f' % score[0]
@@ -89,4 +95,5 @@ def home(request):
 
 def graph(request):
     input_text = request.GET.get('text', '')
-    return render(request, 'clickbait/graph.html', {'input': input_text})
+    cluster = request.GET.get('cluster', '')
+    return render(request, 'clickbait/graph.html', {'input': input_text, 'cluster': cluster})
