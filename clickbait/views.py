@@ -9,6 +9,11 @@ from keras.models import load_model
 from keras_preprocessing.sequence import pad_sequences
 from keras_preprocessing.text import Tokenizer
 import traceback
+import pandas as pd
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
+ps = PorterStemmer()
+
 from numpy.core._multiarray_umath import ndarray
 
 template = 'clickbait/index.html'
@@ -48,6 +53,67 @@ def text_detection(path):
         return txt
 
 
+def class_str(words, keywords):
+    for i in words:
+        if i in keywords:
+            return True
+    return False
+
+
+def check_class_map(text):
+    words = text.split(' ')
+    words = [i.upper() for i in words]
+
+    def check_mapping(words):
+        # p1 hypothesis
+        p1_hypo_keywords = list(pd.read_csv(settings.MEDIA_URL + 'clickbait/hypo.csv', header=None, index_col=None)[0])
+        if class_str(words, p1_hypo_keywords):
+            return 'hypothesis'
+
+        # p2 shocking
+        p2_shocking_keywords = list(pd.read_csv(settings.MEDIA_URL + 'clickbait/shock.csv', header=None, index_col=None)[0])
+        print(p2_shocking_keywords)
+        if class_str(words, p2_shocking_keywords):
+            return 'shocking'
+
+        # p3 reaction
+        p3_reaction_keywords = list(pd.read_csv(settings.MEDIA_URL + 'clickbait/react.csv', header=None, index_col=None)[0])
+        if class_str(words, p3_reaction_keywords):
+            return 'reaction'
+
+        # p4 questionable
+        p4_question_keywords = ['WHICH', 'AM', 'WHAT', 'HOW', 'WHEN', 'ARE', 'WAS', 'WERE', 'MAY', 'MIGHT', 'CAN',
+                                'COULD', 'WILL', 'SHALL', 'WOULD', 'SHOULD', 'HAS', 'HAVE', 'HAD', 'DID']
+        if class_str(words, p4_question_keywords):
+            return 'questionable'
+
+            # p5 reasoning
+        p5_reasoning_keywords = list(pd.read_csv(settings.MEDIA_URL + 'clickbait/reason.csv', header=None, index_col=None)[0])
+        if class_str(words, p5_reasoning_keywords):
+            return 'reasoning'
+
+        # p6 forward referencing
+        p6_forward_ref = list(pd.read_csv(settings.MEDIA_URL + 'clickbait/forward.csv', header=None, index_col=None)[0])
+        if class_str(words, p6_forward_ref):
+            return 'forwardreferencing'
+
+        # p7 revealing
+        p7_revealing = list(pd.read_csv(settings.MEDIA_URL + 'clickbait/reveal.csv', header=None, index_col=None)[0])
+        if class_str(words, p7_revealing):
+            return 'revealing'
+
+        # p8 number
+        for i in words:
+            if i.isnumeric():
+                return 'number'
+
+        # p9 rest
+        return 'miscellaneous'
+
+    mapping = check_mapping(words)
+    return mapping
+
+
 def home(request):
     context = {
     }
@@ -55,7 +121,7 @@ def home(request):
         try:
             print(request.POST)
             text = request.POST.get('text-input', '')
-            cluster = 'Revealing'
+            cluster = check_class_map(text)
             context = {
                 'msg': 'output',
                 'input': text,
@@ -75,7 +141,7 @@ def home(request):
             path = file_obj.save(settings.STATICFILES_DIRS[0] + upload_path , uploaded_file)
             fetched = text_detection(path)
             print(fetched)
-            cluster = 'revealing'
+            cluster = check_class_map(fetched)
             context = {
                 'msg': 'output',
                 'image': True,

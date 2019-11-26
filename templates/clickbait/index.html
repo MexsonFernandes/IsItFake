@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Clickbait detection</title>
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'css/bulma.css' %}" />
@@ -155,26 +156,30 @@
                         Fetched Text: <h4 class="output">{{fetched_output}}</h4><br/>
                         Predicted: <h4 class="output">{{output}}</h4><br/>
                         Confidence Score: <h4 class="output">{{score}}</h4>
-                        <div class="has-text-centered">
+                       {% if not 'not' in output %}
+                        <div  class="has-text-centered">
                             <button class="button is-info">
-                                <a style="text-decoration: none;" href="graph?text={{fetched_output}}">
+                                <a style="text-decoration: none;" href="graph?text={{fetched_output}}&cluster={{cluster}}">
                                     Graph Analysis
                                 </a>
                             </button>
                         </div>
+                       {% endif %}
                     </div>
                     {% else %}
                    <div class="title">
                         Text: <h4 class="output">{{input}}</h4><br/>
                         Predicted: <h4 class="output">{{output}}</h4><br/>
                         Confidence Score: <h4 class="output">{{score}}</h4>
+                        {% if not 'not' in output %}
                         <div class="has-text-centered">
                             <button class="button is-info">
-                                <a style="text-decoration: none;" href="graph?text={{input}}">
+                                <a style="text-decoration: none;" href="graph?text={{input}}&cluster={{cluster}}">
                                     Graph Analysis
                                 </a>
                             </button>
                         </div>
+                       {% endif %}
                     </div>
                     {% endif %}
                 </div>
