@@ -62,8 +62,8 @@ def home(request):
                 'cluster': cluster
             }
             pred, score = check_clickbaitness(text)
-            context['score'] = '%.5f' % score[1] if pred == 1 else '%.5f' % score[0]
-            context['output'] = 'Text is ' + ('clickbait' if pred == 1 else 'not a clickbait')
+            context['score'] = '%.5f' % score[0] if pred == 0 else '%.5f' % score[1]
+            context['output'] = 'Text is ' + ('clickbait' if pred == 0 else 'not a clickbait')
         except Exception as e:
             print(str(e))
             context['error'] = str(e)
@@ -84,8 +84,8 @@ def home(request):
                 'cluster': cluster
             }
             pred, score = check_clickbaitness(fetched)
-            context['score'] = '%.5f' % score[1] if pred == 1 else '%.5f' % score[0]
-            context['output'] = 'Image content is ' + ('clickbait' if pred == 1 else 'not a clickbait')
+            context['score'] = '%.5f' % score[0] if pred == 0 else '%.5f' % score[1]
+            context['output'] = 'Image content is ' + ('clickbait' if pred == 0 else 'not a clickbait')
         except Exception as e:
             print(str(e))
             traceback.print_exc()
