@@ -11,4 +11,3 @@ host_patterns = patterns(
     host(r'deepfakes', 'deepfakes.urls', name='deepfakes'),
     host(r'quotexaminer', 'quotexaminer.urls', name='quotexaminer')
 )
-
