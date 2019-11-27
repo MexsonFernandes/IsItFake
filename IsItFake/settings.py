@@ -59,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django_hosts.middleware.HostsMiddleware',
     'django_hosts.middleware.HostsResponseMiddleware'
 ]
 
@@ -134,14 +135,19 @@ STATICFILES_DIRS = (
 MEDIA_URL = os.path.join(BASE_DIR, "media/")
 
 ROOT_HOSTCONF = 'IsItFake.hosts'
-DEFAULT_HOST = 'clickbait'
+DEFAULT_HOST = 'www'
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "IsItFake/vision.json"
 SERVICE = build("customsearch", "v1",
                 developerKey="AIzaSyAaJ8-PEOVH4AiNEZ2KcS24h48tPIkrmdY")
 
 
-CSRF_TRUSTED_ORIGINS = ['clickbait.isitfake.co.in']
+CSRF_TRUSTED_ORIGINS = ['clickbait.isitfake.co.in',
+                        'www.isitfake.co.in',
+                        'isitfake.co.in',
+                        'quotexaminer.isitfake.co.in',
+                        'fakenews.isitfake.co.in'
+                        ]
 CORS_ORIGIN_WHITELIST = (
     'https://clickbait.isitfake.co.in',
     'https://isitfake.co.in',
