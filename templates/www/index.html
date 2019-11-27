@@ -1,15 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>IsItFake? </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>IsItFake</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'css/bulma.css' %}" />
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){
+                $("#input-image").change(function(){
+                    $('#file-name').html($('#input-image').val());
+                    //$("#preview").attr({ "src": $('#input-image').val() });
+                });
+            });
+        </script>
+        <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 </head>
-<body>
-    On dashboard of is it fake
+<style>
+    .navbar-menu {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+    .navbar {
+        background: whitesmoke;
+    }
+    .wrap {
+        flex-wrap: wrap;
+        justify-content: space-around;
+        flex-direction: row;
+        display: flex;
+}
+    .app-card {
+        height: 89px;
+        width: 215px;
+        border-radius: 10px;
+        margin: 30px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        font-size: 1.5em;
+    }
+    .sponsor-card{
+         height: 58px;
+        width: 120px;
+        background:wheat;
+        color:black;
+        margin: 30px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+    }
+    .p-10 {
+        padding: 10px;
+    }
 
-<a href={{quotexaminer}}>Quotexaminer</a>
-<a href={{fakenews}}>Fake News</a>
-<a href={{clickbait}}>Clickbait</a>
-<a href='{{deepfakes}}'>DeepFake</a>
+
+    .team-card {
+        height: 93%;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .image {
+        border-radius: 100px;
+        height: 200px;
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        box-shadow: 0 0 4px;
+    }
+
+</style>
+<body>
+    <!-- navbar -->
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                        <a class="navbar-item">
+                 <h1 class="is-size-3 has-text-black has-text-weight-semibold">IsItFake</h1>
+                        </a>
+              
+                  <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                  </a>
+                </div>
+              
+                <div id="navbarBasicExample" class="navbar-menu">
+                  <div class="navbar-item">
+                      <a class="">
+                        Home
+                      </a>
+                    </div>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                      <a class="navbar-link" >
+                        Apps
+                      </a>
+              
+                      <div class="navbar-dropdown">
+                        <a class="navbar-item" href={{quotexaminer}}>
+                                Quotexaminer
+                        </a>
+                        <a class="navbar-item" href={{fakenews}}>
+                                Fake News
+                        </a>
+                        <a class="navbar-item" href={{clickbait}}>
+                                Clickbait
+                        </a>
+                        <a class="navbar-item" href={{deepfakes}}>
+                                DeepFake
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="navbar-item">
+                      <a class="#team">
+                        Team
+                      </a>
+                    </div>
+                  
+                </div>
+              </nav>
+              <br>
+              <!-- app container -->
+              <h1 class="is-size-3 has-text-black has-text-centered has-text-weight-semibold">Explore our apps</h1>
+              <div class="container">
+                  <div class="wrap">
+                          <div class="card app-card">
+                              <div class="card-content">
+                                <a href={{quotexaminer}}>
+                                  <h3>Quotexaminer</h3>
+                                </a>
+                              </div>
+                          </div>
+                          <div class="card app-card">
+                            <div class="card-content">
+                              <a href={{clickbait}}>
+                                <h3>Clickbait</h3>
+                              </a>
+                            </div>
+                          </div> 
+                          <div class="card app-card">
+                            <div class="card-content">
+                             <a href={{deepfakes}}>
+                                <h3> DeepFake</h3>
+                              </a>
+                            </div>
+                          </div>
+                          <div class="card app-card">
+                            <div class="card-content">
+                             <a href={{fakenews}}>
+                                <h3>Fake News</h3>
+                                </a>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <br>
+               <!-- Sponsor container -->
+              <h1 class="is-size-3 has-text-black has-text-centered has-text-weight-semibold">Data mine website</h1>
+              <div class="container">
+                  <div class="wrap">
+                  <div class="card sponsor-card" style="background:#3b5998; color:white">
+                      <div class="card-content">
+                          <h5>Facebook</h5>
+                      </div>
+                    </div>
+                    <div class="card sponsor-card" style="background:#1DA1F2; color:white">
+                            <div class="card-content">
+                                <h5>Twitter</h5>
+                            </div>
+                          </div>
+                          <div class="card sponsor-card"  style="background:#FF4301; color:white">
+                                <div class="card-content">
+                                    <h5>Reddit</h5>
+                                </div>
+                          </div>
+                          <div class="card sponsor-card"  style="background:#c4302b; color:white">
+                                <div class="card-content">
+                                    <h5>Youtube</h5>
+                                </div>
+                          </div>
+                          <div class="card sponsor-card"  style="background: #fffc00; color:black">
+                                <div class="card-content">
+                                    <h5>Snapchat</h5>
+                                </div>
+                          </div>
+                          <div class="card sponsor-card"  style="background:#0e76a8; color:white">
+                                <div class="card-content">
+                                    <h5>Linkedin</h5>
+                                </div>
+                          </div>
+                </div>
+                </div><br>
+                <!-- Team container -->
+                <h1 id="team" class="is-size-3 has-text-black has-text-centered has-text-weight-semibold">Team</h1><br>
+                <div class="container">
+                        <div class="columns p-6">
+                                <div class="column">
+                                  <div class="card team-card">
+                                    <div class="card-image">
+                                      <figure class="image mobile">
+                                        <img src="../assets/ashish.jpg" class="image" />
+                                      </figure>
+                                      <div class="card-content">
+                                            <h3 class="mobile has-text-centered has-text-weight-semibold has-text-black is-size-4">Dr. Parteek Bhatia</h3>
+                                            <h5 class="mobile has-text-centered has-text-weight-semibold has-text-black is-size-4">Associate Professor</h5>
+                                          </div>
+                                    </div>
+                                  </div>
+                                </div>
+                        
+                                <div class="column">
+                                  <div class="card team-card">
+                                    <div class="card-image">
+                                      <figure class="image">
+                                        <img src="../assets/mexson.png" class="image" />
+                                      </figure>
+                                      <div class="card-content">
+                                            <h3 class="mobile has-text-centered has-text-weight-semibold has-text-black is-size-4">Sawinder Kaur</h3>
+                                            <h5 class="mobile has-text-centered has-text-weight-semibold has-text-black is-size-4">Phd Scholar</h5>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+
+    <footer class="footer" style="padding: 50px">
+        <div class=" has-text-centered">
+            <p>
+                <strong>Research project</strong> <a href="">IsItFake</a>.
+            </p>
+        </div>
+    </footer>
+
+
 </body>
 </html>

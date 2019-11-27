@@ -52,6 +52,7 @@ INSTALLED_APPS = INSTALLED_APPS + MY_APPS
 
 MIDDLEWARE = [
     'django_hosts.middleware.HostsRequestMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -127,11 +128,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
 
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 MEDIA_URL = os.path.join(BASE_DIR, "media/")
 
 ROOT_HOSTCONF = 'IsItFake.hosts'
@@ -153,3 +156,6 @@ CORS_ORIGIN_WHITELIST = (
     'https://isitfake.co.in',
     'https://www.isitfake.co.in'
 )
+
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
