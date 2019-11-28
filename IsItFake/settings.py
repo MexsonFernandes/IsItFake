@@ -23,12 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'r8bcbma_p*%k(2_^9zy&q_d47%u!c2_w@9@yer8#a2*c)ag9#w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -138,7 +137,7 @@ STATICFILES_DIRS = (
 MEDIA_URL = os.path.join(BASE_DIR, "media/")
 
 ROOT_HOSTCONF = 'IsItFake.hosts'
-DEFAULT_HOST = 'www'
+DEFAULT_HOST = 'clickbait'
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "IsItFake/vision.json"
 SERVICE = build("customsearch", "v1",
@@ -146,7 +145,7 @@ SERVICE = build("customsearch", "v1",
 
 
 CSRF_TRUSTED_ORIGINS = ['clickbait.isitfake.co.in',
-                        'www.isitfake.co.in',
+                        'www    .isitfake.co.in',
                         'isitfake.co.in',
                         'quotexaminer.isitfake.co.in',
                         'fakenews.isitfake.co.in'

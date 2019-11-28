@@ -18,6 +18,16 @@
             });
         });
     </script>
+    <script>
+        function openModal() {
+            const modal = document.getElementsByClass('modal')[0];
+            const open = document.getElementById('sample');
+            open.onclick = () => {
+                modal.style.display = "block";
+            }
+        };
+        openModal()
+        </script>
 </head>
 <body>
     <style>
@@ -83,7 +93,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <span>
                                 <input class="button is-info" type="submit" value="Predict"/>
+                                <button class="button is-light" id="sample">Check sample</button>
+                                </span>
                             </form>
                         </div>
                     </div>
@@ -129,7 +142,10 @@
 
                                     </div>
                                 </div>
+                                <span>
                                     <input type="submit" class="button is-info " value="Check">
+                                    <button class="button is-light" id="download">Download</button>
+                                </span>
 
                             </form>
                         </div>
@@ -209,6 +225,14 @@
     </div>
     {% endif %}
 
+<div class="modal modal-text-sample">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis. 
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
     <footer class="footer" style="padding: 50px">
         <div class=" has-text-centered">
             <p>
@@ -257,6 +281,11 @@
             modal.classList.remove('is-active');
             e.preventDefault();
         });
+
+        document.querySelector('#sample').addEventListener('click', function(e) {
+            $('.modal-text-sample').classList.add('is-active');
+            e.preventDefault();
+        })
     </script>
 </body>
 </html>
