@@ -93,8 +93,10 @@
                   </a>
                 </div>
               
-                <div id="navbarBasicExample" class="navbar-end">
-                  <div class="navbar-item">
+                <div id="navbarBasicExample" class="navbar-menu">
+
+                    <div class="navbar-end">
+                        <div class="navbar-item">
                       <a class="">
                         Home
                       </a>
@@ -103,7 +105,7 @@
                       <a class="navbar-link" >
                         Apps
                       </a>
-              
+
                       <div class="navbar-dropdown">
                         <a class="navbar-item" href={{quotexaminer}}>
                                 Quotexaminer
@@ -125,6 +127,8 @@
                         Team
                       </a>
                     </div>
+                    </div>
+
                   
                 </div>
               </nav>
@@ -244,6 +248,45 @@
         </div>
     </footer>
 
+ <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get all "navbar-burger" elements
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+
+                    // Get the target from the "data-target" attribute
+                    const target = el.dataset.target;
+            const $target = document.getElementById(target);
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+
+        });
+        });
+        }
+
+        });
+        var modal = document.querySelector('.modal');
+        modal.querySelector('.modal-background').addEventListener('click', function(e) {
+            modal.classList.remove('is-active');
+            e.preventDefault();
+        });
+        modal.querySelector('.modal-close').addEventListener('click', function(e) {
+            modal.classList.remove('is-active');
+            e.preventDefault();
+        });
+
+        document.querySelector('#sample').addEventListener('click', function(e) {
+            $('.modal-text-sample').classList.add('is-active');
+            e.preventDefault();
+        })
+    </script>
 </body>
 </html>
