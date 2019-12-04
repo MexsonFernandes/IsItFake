@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 def home(request):
     context = {
-        'deepfakes': 'http://deepfakes.isitfake.co.in',
+        'deepfakes': 'http://faceswap.isitfake.co.in',
         'fakenews': 'http://fakenews.isitfake.co.in',
         'clickbait': 'http://clickbait.isitfake.co.in',
         'quotexaminer': 'http://quotexaminer.isitfake.co.in'
