@@ -10,11 +10,4 @@ def home(request):
         'clickbait': 'http://clickbait.isitfake.co.in',
         'quotexaminer': 'http://quotexaminer.isitfake.co.in'
     }
-    if settings.DEBUG:
-        context = {
-            'deepfakes': 'http://deepfakes.localhost:8000',
-            'fakenews': 'http://fakenews.localhost:8000',
-            'clickbait': 'http://clickbait.localhost:8000',
-            'quotexaminer': 'http://quotexaminer.localhost:8000'
-        }
     return render(request, 'www/index.html', context)

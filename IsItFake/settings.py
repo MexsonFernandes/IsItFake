@@ -59,8 +59,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django_hosts.middleware.HostsMiddleware',
     'django_hosts.middleware.HostsResponseMiddleware'
+    # 'django_hosts.middleware.HostsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'IsItFake.urls'
