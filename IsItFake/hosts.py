@@ -8,6 +8,6 @@ host_patterns = patterns(
     host(r'admin', settings.ROOT_URLCONF, name='admin'),
     host(r'clickbait', 'clickbait.urls', name='clickbait'),
     host(r'fakenews', 'fakenews.urls', name='fakenews'),
-    host(r'deepfakes', 'deepfakes.urls', name='deepfakes'),
+    host(r'faceswap', 'deepfakes.urls', name='faceswap'),
     host(r'quotexaminer', 'quotexaminer.urls', name='quotexaminer')
 )
