@@ -137,7 +137,7 @@ STATICFILES_DIRS = (
 MEDIA_URL = os.path.join(BASE_DIR, "media/")
 
 ROOT_HOSTCONF = 'IsItFake.hosts'
-DEFAULT_HOST = 'clickbait'
+DEFAULT_HOST = 'www'
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "IsItFake/vision.json"
 SERVICE = build("customsearch", "v1",
