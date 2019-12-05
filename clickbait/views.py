@@ -13,9 +13,9 @@ import pandas as pd
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 ps = PorterStemmer()
-
+from django.views.decorators.csrf import csrf_exempt
 from numpy.core._multiarray_umath import ndarray
-
+from django.http import JsonResponse
 template = 'clickbait/index.html'
 model_cnn = load_model(settings.MEDIA_URL + 'clickbait/host.h5')
 MAX_VOCAB_SIZE = 20000
@@ -114,6 +114,29 @@ def check_class_map(text):
     return mapping
 
 
+@csrf_exempt
+def api_text(request):
+    if 'text-input' in request.POST:
+        try:
+            print(request.POST)
+            text = request.POST.get('text-input', '')
+            cluster = check_class_map(text)
+            context = {
+                'msg': 'output',
+                'input': text,
+                'cluster': cluster
+            }
+            pred, score = check_clickbaitness(text)
+            context['score'] = '%.5f' % score[0] if pred == 0 else '%.5f' % score[1]
+            context['output'] = 'Text is ' + ('clickbait' if pred == 0 else 'not a clickbait')
+            return JsonResponse({'result': True, "output": context})
+        except Exception as e:
+            print(str(e))
+            context['error'] = str(e)
+            return JsonResponse({'result': False})
+
+
+@csrf_exempt
 def home(request):
     context = {
     }
