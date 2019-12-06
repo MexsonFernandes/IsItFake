@@ -43,6 +43,7 @@ def predict(text):
 @csrf_exempt
 def home(request):
     context = {
+        'msg': ''
     }
     if request.POST:
         try:
