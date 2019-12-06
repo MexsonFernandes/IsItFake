@@ -68,6 +68,9 @@
             <h2 class="subtitle">
                 <div class="card">
                     <header class="card-header is-primary notification">
+                        <p class="card-header-title has-text-white">
+                            Test article from content
+                        </p>
                         <a href="#" class="card-header-icon" aria-label="more options">
                       <span class="icon">
                         <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -79,32 +82,17 @@
                             <form name="text" method="post" action="">
                             {% csrf_token %}
                                 <div class="columns is-mobile">
-                                    <div class="column">Headline</div>
-                                    <div class="column is-two-thirds">
-                                        <div class="control">
-                                            <input  name="text-input"
-                                                    class="input is-info"
-                                                    id="text-input"
-                                                    required="required"
-                                                   />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="columns is-mobile">
                                     <div class="column">Content</div>
                                     <div class="column is-two-thirds">
                                         <div class="control">
-                                            <input  name="text-input"
-                                                    class="input is-info"
-                                                    id="text-input"
-                                                    required="required"
-                                                   />
+                                            <textarea class="textarea" name="text-input" id="text-input" placeholder="e.g. news content here"></textarea>
                                         </div>
                                     </div>
-                                </div>  
+                                </div>
+
                                  <div style= "display: flex; justify-content: space-evenly">
                                 <button class="button is-primary">Submit</button>
-                                  <button class="button is-light">Reset</button>
+                                  <button class="button is-light" onclick="document.getElementById('text-input').innerHTML = ''">Reset</button>
                                   </div>
                             </form>
                         </div>
@@ -115,6 +103,9 @@
                  <br/>
                 <div class="card">
                     <header class="card-header notification is-primary">
+                        <p class="card-header-title has-text-white">
+                            Test article using Url
+                        </p>
                         <a href="#" class="card-header-icon" aria-label="more options">
                       <span class="icon">
                         <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -129,9 +120,9 @@
                                     <div class="column">URL Link</div>
                                     <div class="column is-two-thirds">
                                         <div class="control">
-                                            <input  name="text-input"
+                                            <input  name="url"
                                                     class="input is-info"
-                                                    id="text-input"
+                                                    id="url"
                                                     required="required"
                                                    />
                                         </div>
@@ -148,7 +139,7 @@
             </h2>   
         </div>
     </section>
-    {% if msg == 'output' %}
+    {% if not error %}
     <div id="pop-up" class="modal is-active">
         <div class="modal-background"></div>
         <div class="modal-content">
@@ -157,38 +148,10 @@
                     <p>Output</p>
                 </div>
                 <div class="message-body">
-                   {% if image %}
                    <div class="title">
-                        Input image: <img src="{% static image_path %}"/>
-                        Fetched Text: <h4 class="output">{{fetched_output}}</h4><br/>
-                        Predicted: <h4 class="output">{{output}}</h4><br/>
-                        Confidence Score: <h4 class="output">{{score}}</h4>
-                       {% if not 'not' in output %}
-                        <div  class="has-text-centered">
-                            <button class="button is-info">
-                                <a style="text-decoration: none;" href="graph?text={{fetched_output}}&cluster={{cluster}}">
-                                    Graph Analysis
-                                </a>
-                            </button>
-                        </div>
-                       {% endif %}
+                       Predicted: <h4 class="output">{{out}}</h4><br/>
+                       Input content:  <h4 class="output">{{input}}</h4><br/>
                     </div>
-                    {% else %}
-                   <div class="title">
-                        Text: <h4 class="output">{{input}}</h4><br/>
-                        Predicted: <h4 class="output">{{output}}</h4><br/>
-                        Confidence Score: <h4 class="output">{{score}}</h4>
-                        {% if not 'not' in output %}
-                        <div class="has-text-centered">
-                            <button class="button is-info">
-                                <a style="text-decoration: none;" href="graph?text={{input}}&cluster={{cluster}}">
-                                    Graph Analysis
-                                </a>
-                            </button>
-                        </div>
-                       {% endif %}
-                    </div>
-                    {% endif %}
                 </div>
             </article>
         </div>
@@ -206,7 +169,7 @@
                 </div>
                 <div class="message-body">
                    <div class="title">
-                        Message: <h4 class="output">{{error_message}}</h4><br/>
+                        Message: <h4 class="output">{{error}}</h4><br/>
 
                     </div>
                 </div>
