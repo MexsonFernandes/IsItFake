@@ -68,6 +68,7 @@ def home(request):
 
         except Exception as e:
             print(str(e))
+            context['msg'] = 'error'
             print(traceback.print_exc())
             if 'text-input' in request.POST:
                 context['error'] = 'Error in parsing data'
