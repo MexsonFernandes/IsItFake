@@ -11,7 +11,7 @@ def home(request):
     return render(request, 'fakenews/index.html')
 
 
-def headline_text(url = '', summary = False):
+def headline_text(url='', summary=False):
     '''
     Returns headline text of news..
     Just makes call to the newspaper class.
@@ -54,7 +54,7 @@ def home(request):
                 'input': '',
                 'out': out
             }
-            if 'text-input' in request.POST:
+            if len(request.POST.get('text-input', '')) > 0:
                 text = request.POST.get('text-input', '')
                 out = predict(text)
                 context['out'] = 'fake' if out == 1 else 'real'

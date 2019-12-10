@@ -19,6 +19,6 @@ from django.conf import Settings
 from api.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('api/v1/url', check_url)
 ]
 

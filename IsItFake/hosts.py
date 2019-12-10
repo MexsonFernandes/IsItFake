@@ -9,5 +9,6 @@ host_patterns = patterns(
     host(r'clickbait', 'clickbait.urls', name='clickbait'),
     host(r'fakenews', 'fakenews.urls', name='fakenews'),
     host(r'faceswap', 'deepfakes.urls', name='faceswap'),
-    host(r'quotexaminer', 'quotexaminer.urls', name='quotexaminer')
+    host(r'quotexaminer', 'quotexaminer.urls', name='quotexaminer'),
+    host(r'api', 'api.urls', name='api')
 )

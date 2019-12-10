@@ -32,10 +32,13 @@
 <body>
     <style>
         body {
-            background-image: url("{% static 'fakenews/News.jpg' %}");
+            background-image: url("{% static 'fakenews/background.jpg' %}");
             background-repeat: no-repeat;
             background-position: center;
             background-size: 100% 100%;
+        }
+        .column {
+            font-size: 18px;
         }
     </style>
     <nav class="navbar  " role="navigation" aria-label="main navigation">
@@ -66,16 +69,11 @@
     <section class="section">
         <div class="container">
             <h2 class="subtitle">
-                <div class="card">
-                    <header class="card-header is-primary notification">
-                        <p class="card-header-title has-text-white">
-                            Test article from content
+                <div class="card notification">
+                    <header class="card-header is-info notification">
+                        <p class="card-header-title has-text-white has-text-centered">
+                            Verify article from content or raw Url
                         </p>
-                        <a href="#" class="card-header-icon" aria-label="more options">
-                      <span class="icon">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
-                      </span>
-                        </a>
                     </header>
                     <div class="card-content">
                         <div class="content has-text-centered">
@@ -88,54 +86,37 @@
                                             <textarea class="textarea" name="text-input" id="text-input" placeholder="e.g. news content here"></textarea>
                                         </div>
                                     </div>
+
                                 </div>
 
-                                 <div style= "display: flex; justify-content: space-evenly">
-                                <button class="button is-primary">Submit</button>
-                                  <button class="button is-light" onclick="document.getElementById('text-input').innerHTML = ''">Reset</button>
-                                  </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <h1 class="is-size-4 has-text-black has-text-centered has-text-weight-semibold">OR</h1>
-                 <br/>
-                <div class="card">
-                    <header class="card-header notification is-primary">
-                        <p class="card-header-title has-text-white">
-                            Test article using Url
-                        </p>
-                        <a href="#" class="card-header-icon" aria-label="more options">
-                      <span class="icon">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
-                      </span>
-                        </a>
-                    </header>
-                    <div class="card-content">
-                        <div class="content has-text-centered">
-                            <form name="image" action="" enctype="multipart/form-data" method="POST">
-                            {% csrf_token %}
-                              <div class="columns is-mobile">
+                                <h1 class="is-size-4 has-text-black has-text-centered has-text-weight-semibold">OR</h1>
+
+                                 <div class="columns is-mobile">
                                     <div class="column">URL Link</div>
                                     <div class="column is-two-thirds">
                                         <div class="control">
                                             <input  name="url"
                                                     class="input is-info"
                                                     id="url"
-                                                    required="required"
+                                                    placeholder="eg. https://www.nytimes.com/2019/11/20/world/asia/india-military-exercises-trump.html"
                                                    />
                                         </div>
                                     </div>
                                 </div>
-                                   <div style= "display: flex; justify-content: space-evenly">
-                                <button class="button is-primary">Submit</button>
-                                  <button class="button is-light">Reset</button>
+
+                                <button class="button is-info">Submit</button>
+                                <span class="button is-light" onclick="document.getElementById('text-input').value = '';
+                                                                       document.getElementById('url').value = '';">Reset</span>
+
                                   </div>
                             </form>
+
                         </div>
                     </div>
                 </div>
+                <br/>
+                 <br/>
+
             </h2>   
         </div>
     </section>
@@ -187,7 +168,7 @@
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
 
-    <footer class="footer" style="padding: 50px">
+    <footer class="footer is-info" style="padding: 50px">
         <div class=" has-text-centered">
             <p>
                 <strong>Research project</strong> on <a href="">Fake Article detection</a>.
