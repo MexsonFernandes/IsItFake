@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load staticfiles %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+    box-sizing: border-box;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 15px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.bg {
+    /* The image used */
+    background-image: url({% static 'quotexaminer/back.jpg' %});
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+</style>
+</head>
+<body>
+<div class="bg" align="center">
+
+  <br><br>
+     <p><font color="black" size="6">{{v}}</font></p> 
+    
+    <h1>QUOTE:</h1>
+       <h2 align="center"> "{{q}}" </h2>
+    <h3>Author: {{a}}</h3>
+    <br><br>
+   <img src="{% static image_name %}" width="500" height="250"/>
+  
+
+    
+  </div>
+</body>
+</html>

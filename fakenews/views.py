@@ -20,7 +20,7 @@ def headline_text(url='', summary=False):
     # Download the article and parse it.
     article.download()
     article.parse()
-    #authors = article.authors
+    # authors = article.authors
     headline = article.title
     text = article.text
     if summary:

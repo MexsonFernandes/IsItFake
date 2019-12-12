@@ -1,10 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>QuotExaminer</title>
+    <link rel="stylesheet" href="/static/css/bulma.css" />
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $("#input-image").change(function(){
+                $('#file-name').html($('#input-image').val());
+                //$("#preview").attr({ "src": $('#input-image').val() });
+            });
+        });
+    </script>
+    <script>
+        function openModal() {
+            const modal = document.getElementsByClass('modal')[0];
+            const open = document.getElementById('sample');
+            open.onclick = () => {
+                modal.style.display = "block";
+            }
+        };
+        openModal()
+        </script>
 </head>
 <body>
-QuotExaminer
+    <style>
+        body {
+            background-image: url({% static 'quotexaminer/back.jpg' %});
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+        }
+    </style>
+    <nav class="navbar  " role="navigation" aria-label="main navigation">
+        <div class="navbar-brand has-text-centered">
+
+            <a class="navbar-item" href="">
+                <h2 class="title has-text-centered">QuotExaminer</h2>
+
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+
+            <img src="{% static 'quotexaminer/home.gif' %}"/>
+
+            <h2 class="subtitle">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content has-text-centered">
+                            <form name="image" enctype="multipart/form-data" action="" method="POST">
+                                {% csrf_token %}
+                                <div class="columns is-mobile">
+                                    <div class="column">Browse Image</div>
+                                    <div class="column is-two-thirds">
+                                        <div class="file has-name">
+                                            <label class="file-label">
+                                                <input required="required" onchange="document.getElementById('preview-image').src = window.URL.createObjectURL(this.files[0]);
+                                                                document.getElementById('preview-block').style.display = 'block';" class="file-input" id="input-image" type="file" name="file" accept=".png, .jpg">
+                                                <span class="file-cta">
+                                            <span class="file-icon">
+                                                <i class="fas fa-upload"></i>
+                                            </span>
+                                            <span class="file-label">
+                                                Choose a file…
+                                            </span>
+                                            </span>
+                                            <span id="file-name" class="file-name">
+                                                File not selected
+                                            </span>
+                                            </label>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                   <div id="preview-block" style="display: none;">
+                                       Preview image<br/>
+                                        <img id="preview-image" width="300px" height="300px"/>
+                                    </div>
+                                    <input type="submit" class="button is-info" value="Check">
+                                <br/><br/>
+                                    <span>
+                                        <a href="download/quotexaminer/verified.jpg">
+                                            <div class="button is-light">
+                                                Download Verified
+                                            </div>
+                                        </a>
+                                        <a href="download/quotexaminer/fake.png">
+                                            <div class="button is-light">
+                                                Download Fake
+                                            </div>
+                                        </a>
+                                     </span>
+                            </form>
+
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <div class="has-text-centered card-footer-item">Image will be previewed before submission</div>
+                    </footer>
+                </div>
+            </h2>
+        </div>
+    </section>
+    {% if msg == 'output' %}
+    <div id="pop-up" class="modal is-active" >
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <article class="message is-warning">
+                <div class="message-header">
+                    <p>Output</p>
+                </div>
+                <div class="message-body">
+                   <div class="title"><br/>
+                        Input image: <br/><img src={{input_file}}><br/>
+                        Class: <h4 class="output">{{output}}</h4><br/>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div id="pop-up" class="modal is-active" >
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <article class="message is-danger">
+                <div class="message-header">
+                    <p>Output</p>
+                </div>
+                <div class="message-body">
+                   <div class="title">
+                        Message: <h4 class="output">{{data.error_message}}</h4><br/>
+
+                    </div>
+                </div>
+            </article>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    {% endif %}
+
+
+    <footer class="footer" style="padding: 50px">
+        <div class=" has-text-centered">
+            <p>
+                <strong>Research project</strong> on <a href="">QuotExaminer</a>.
+            </p>
+        </div>
+    </footer>
+
+    <style>
+        .container {
+        max-width: 615px;
+        }
+    </style>
+
+    <script>
+        var modal = document.querySelector('.modal');
+        modal.querySelector('.modal-background').addEventListener('click', function(e) {
+            modal.classList.remove('is-active');
+            e.preventDefault();
+        });
+        modal.querySelector('.modal-close').addEventListener('click', function(e) {
+            modal.classList.remove('is-active');
+            e.preventDefault();
+        });
+
+        document.querySelector('#sample').addEventListener('click', function(e) {
+            $('.modal-text-sample').classList.add('is-active');
+            e.preventDefault();
+        })
+    </script>
 </body>
 </html>
