@@ -2,9 +2,238 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Deep Fakes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FaceSwap</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/bulma.css' %}" />
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $("#input-video").change(function(){
+                $('#file-name').html($('#input-video').val());
+                //$("#preview").attr({ "src": $('#input-video').val() });
+            });
+        });
+    </script>
+    <script>
+        function openModal() {
+            const modal = document.getElementsByClass('modal')[0];
+            const open = document.getElementById('sample');
+            open.onclick = () => {
+                modal.style.display = "block";
+            }
+        };
+        openModal()
+        </script>
 </head>
 <body>
-Deep Fakes
+    <style>
+        body {
+            background-image: url("{% static 'faceswap/faceswap.jpg' %}");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+        }
+        .column {
+            font-size: 18px;
+        }
+    </style>
+    <nav class="navbar  " role="navigation" aria-label="main navigation">
+        <div class="navbar-brand has-text-centered">
+
+            <a class="navbar-item" href="">
+                <h2 class="title has-text-centered">FaceSwap</h2>
+
+            </a>
+
+<!--            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">-->
+<!--                <span aria-hidden="true"></span>-->
+<!--                <span aria-hidden="true"></span>-->
+<!--                <span aria-hidden="true"></span>-->
+<!--            </a>-->
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="subtitle">
+                <div class="card notification">
+                    <header class="card-header is-info notification">
+                        <p class="card-header-title has-text-white has-text-centered">
+                            Verify fake video content
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content has-text-centered">
+                            <form name="text" method="post" action="">
+                            {% csrf_token %}
+                                <div class="columns is-mobile">
+                                    <div class="column"></div>
+                                   <div class="file column has-name">
+                                        <label class="file-label">
+                                            <input onchange="document.getElementById('preview-video').src = window.URL.createObjectURL(this.files[0]);
+                                                             document.getElementById('preview-block').style.display = 'block';" class="file-input" id="input-video" type="file" name="file" accept=".mp4">
+                                            <span class="file-cta">
+                                        <span class="file-icon">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label">
+                                            Choose a file…
+                                        </span>
+                                        </span>
+                                        <span id="file-name" class="file-name">
+                                            Video not selected
+                                        </span>
+                                        </label>
+
+                                    </div>
+
+                                </div>
+
+                                <h1 class="is-size-4 has-text-black has-text-centered has-text-weight-semibold">OR</h1>
+
+                                 <div class="columns is-mobile">
+                                    <div class="column">URL Link</div>
+                                    <div class="column is-two-thirds">
+                                        <div class="control">
+                                            <input  name="url"
+                                                    class="input is-info"
+                                                    id="url"
+                                                    placeholder="eg. https://www.youtube.com/watch?v=NLb-gZNKzT8"
+                                                   />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="button is-info">Submit</button>
+                                <span class="button is-light" onclick="document.getElementById('text-input').value = '';
+                                                                       document.getElementById('url').value = '';">Reset</span>
+
+                                  </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                 <br/>
+
+            </h2>
+        </div>
+    </section>
+    {% if msg == 'output' %}
+    <div id="pop-up" class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <article class="message is-info">
+                <div class="message-header">
+                    <p>Output</p>
+                </div>
+                <div class="message-body">
+                   <div class="title">
+                       Predicted: <h4 class="output">{{out}}</h4><br/>
+                       Input content:  <h4 class="output">{{input}}</h4><br/>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div id="pop-up" class="modal is-active" >
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <article class="message is-danger">
+                <div class="message-header">
+                    <p>Output</p>
+                </div>
+                <div class="message-body">
+                   <div class="title">
+                        Message: <h4 class="output">{{error}}</h4><br/>
+
+                    </div>
+                </div>
+            </article>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    {% endif %}
+
+<div class="modal modal-text-sample">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+    <footer class="footer is-info" style="padding: 50px">
+        <div class=" has-text-centered">
+            <p>
+                <strong>Research project</strong> on <a href="">FaceSwap</a>.
+            </p>
+        </div>
+    </footer>
+
+    <style>
+        .container {
+        max-width: 615px;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get all "navbar-burger" elements
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+
+                    // Get the target from the "data-target" attribute
+                    const target = el.dataset.target;
+            const $target = document.getElementById(target);
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+
+        });
+        });
+        }
+
+        });
+        var modal = document.querySelector('.modal');
+        modal.querySelector('.modal-background').addEventListener('click', function(e) {
+            modal.classList.remove('is-active');
+            e.preventDefault();
+        });
+        modal.querySelector('.modal-close').addEventListener('click', function(e) {
+            modal.classList.remove('is-active');
+            e.preventDefault();
+        });
+
+        document.querySelector('#sample').addEventListener('click', function(e) {
+            $('.modal-text-sample').classList.add('is-active');
+            e.preventDefault();
+        })
+    </script>
 </body>
 </html>
