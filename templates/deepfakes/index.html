@@ -77,7 +77,7 @@
                     </header>
                     <div class="card-content">
                         <div class="content has-text-centered">
-                            <form name="text" method="post" action="">
+                            <form name="text" enctype="multipart/form-data" method="post" action="">
                             {% csrf_token %}
                                 <div class="columns is-mobile">
                                     <div class="column"></div>
@@ -143,8 +143,10 @@
                 </div>
                 <div class="message-body">
                    <div class="title">
-                       Predicted: <h4 class="output">{{out}}</h4><br/>
-                       Input content:  <h4 class="output">{{input}}</h4><br/>
+                       Predicted: <h4 class="output">{{result}}</h4><br/>
+                       Input content: <a href={{video}}/>Video File</a>
+                       {{video}}
+                       <br/>
                     </div>
                 </div>
             </article>
