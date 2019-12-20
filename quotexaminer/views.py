@@ -26,13 +26,15 @@ def entities(txt):
 
 
 def download(request, file_name):
+    print(file_name)
     file_path = settings.MEDIA_URL + 'quotexaminer/' + file_name
     file_wrapper = FileWrapper(open(file_path, 'rb'))
     file_mimetype = mimetypes.guess_type(file_path)
-    response = HttpResponse(file_wrapper, content_type=file_mimetype )
+    response = HttpResponse(file_wrapper, content_type=file_mimetype)
     response['X-Sendfile'] = file_path
     response['Content-Length'] = os.stat(file_path).st_size
-    response['Content-Disposition'] = 'attachment; filename=%s/' % smart_str(file_name)
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(file_name)
+    print(response)
     return response
 
 

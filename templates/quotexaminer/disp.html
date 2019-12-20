@@ -37,17 +37,22 @@ body, html {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.text-decor {
+    color: white;
+    text-shadow: 2px 2px 6px #121515;
+}
 </style>
 </head>
 <body>
 <div class="bg" align="center">
 
   <br><br>
-     <p><font color="black" size="6">{{v}}</font></p> 
+     <p style="font-size: 2em;" class="text-decor">{{v}}</p>
     
-    <h1>QUOTE:</h1>
-       <h2 align="center"> "{{q}}" </h2>
-    <h3>Author: {{a}}</h3>
+    <h1 class="text-decor">QUOTE:</h1>
+       <h2 align="center" class="text-decor"> "{{q}}" </h2>
+    <h3  class="text-decor">Author: {{a}}</h3>
     <br><br>
    <img src="{% static image_name %}" width="500" height="250"/>
   

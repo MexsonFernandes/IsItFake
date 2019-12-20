@@ -1,3 +1,4 @@
+import math
 import tempfile
 from django.shortcuts import render
 import os
@@ -5,6 +6,7 @@ from django.conf import settings
 import urllib.request
 from pytube import YouTube
 import requests
+import cv2
 
 
 def handle_uploaded_file(f, dest):
@@ -26,6 +28,25 @@ def download_video_from_url(link, destination):
                 if chunk:
                     f.write(chunk)
     return name
+
+
+def create_frames_for_slots(path):
+    # count frame
+    video = cv2.VideoCapture(path)
+    count = 0
+    frame_rate = video.get(5)
+    while video.isOpened():
+        frame_id = video.get(1)
+        if frame_id % math.floor(frame_rate) == 0:
+            count += 1
+    # create frames
+    os.mkdir(path.replace(".mp4", ""))
+    while video.isOpened():
+        frame_id = video.get(1)
+        ret, frame = video.read()
+        if frame_id == 1 or frame_id == count or frame_id == count/2:
+            filename = path.replace(".mp4", "") + str(int(frame_id)) + ".jpg"
+            cv2.imwrite(filename, frame)
 
 
 def home(request):
@@ -52,6 +73,7 @@ def home(request):
             print("Accept incoming file:", filename)
             handle_uploaded_file(upload, destination)
             print("Saved to:", destination)
+            create_frames_for_slots(destination)
             context = {
                 'video': 'static/faceswap/upload/' + filename,
                 'msg': 'output',
@@ -62,12 +84,12 @@ def home(request):
             url = request.POST.get("url", "")
             target = os.path.join(settings.STATICFILES_DIRS[0], 'faceswap/upload')
             # destination = target + tempfile.mkstemp()[1].split('/')[2]
-            name = download_video_from_url(url, target)
-            print(name)
+            destination = download_video_from_url(url, target)
             print(url)
             print(target)
+            create_frames_for_slots(destination)
             context = {
-                'video': 'static/faceswap/upload' + name.replace(target, ''),
+                'video': 'static/faceswap/upload' + destination.replace(target, ''),
                 'msg': 'output',
                 'result': 'To be uploaded'
             }
