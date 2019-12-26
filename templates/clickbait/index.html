@@ -36,7 +36,24 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: 100% 100%;
+            height: 100vh;
         }
+        .container {
+            max-width: 1068px;
+        }
+
+        footer {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+         }
+         section {
+            padding-bottom: 128px;
+         }
+
+         .notification {
+            padding: 0;
+         }
     </style>
     <nav class="navbar  " role="navigation" aria-label="main navigation">
         <div class="navbar-brand has-text-centered">
@@ -59,20 +76,22 @@
             <div class="navbar-end">
                 <div class="navbar-item bold">
                     <a class="navbar-item" href="https://www.isitfake.co.in">
-                        <h2 class="title has-text-centered">IsItFake Home</h2>
+                        <button class="button is-dark">Home</button>
                     </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <section class="section">
-        <div class="container">
-            <h2 class="subtitle">
+    <section class="section" style=" padding-bottom: 128px;">
+        <div class="container" style="max-width: 1068px;">
+
+            <div class="columns">
+              <div class="column">
                 <div class="card">
                     <header class="card-header is-info notification">
                         <p class="card-header-title has-text-white">
-                            Check short texts
+                            Use raw text for detection
                         </p>
                         <a href="#" class="card-header-icon" aria-label="more options">
                       <span class="icon">
@@ -107,11 +126,12 @@
                         <div class="card-footer-item">Short texts will have better results.</div>
                     </footer>
                 </div>
-                <br/>
+              </div>
+              <div class="column">
                 <div class="card">
                     <header class="card-header notification is-info">
                         <p class="card-header-title has-text-white">
-                            Check short texts from image
+                            Use image file for clickbait prediction
                         </p>
                         <a href="#" class="card-header-icon" aria-label="more options">
                       <span class="icon">
@@ -157,7 +177,8 @@
                         <div class="has-text-centered card-footer-item">Image will be converted to text for analysis</div>
                     </footer>
                 </div>
-            </h2>
+              </div>
+            </div>
         </div>
     </section>
     {% if msg == 'output' %}
