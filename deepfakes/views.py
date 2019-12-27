@@ -96,11 +96,12 @@ def home(request):
                 path = glob.glob(create_frames_for_slots(destination))
                 global classifier
                 average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
+                print(average_score)
                 context = {
                     'video': 'static/faceswap/upload/' + filename,
                     'msg': 'output',
                     'result': 'To be uploaded',
-                    'score': average_score
+                    'score9': "%.2f" % (float(average_score)*100)
                 }
             else:
                 print("url")
@@ -113,11 +114,13 @@ def home(request):
                 path = glob.glob(create_frames_for_slots(destination))
                 global classifier
                 average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
+                print(average_score)
                 context = {
                     'video': 'static/faceswap/upload' + destination.replace(target, ''),
                     'msg': 'output',
                     'result': 'To be uploaded',
-                    'score': average_score
+                    'score': "%.2f" % (float(average_score)*100)
+
                 }
     except Exception as e:
         context = {
