@@ -18,9 +18,9 @@ classifier = tf.keras.models.load_model('MODEL.h5')
 
 # predict input image images
 def predict_image(image_path, classifier):
-    test_image= image.load_img(image_path, target_size=(128,128))
-    test_image=image.img_to_array(test_image)
-    test_image=np.expand_dims(test_image, axis=0)
+    test_image = image.load_img(image_path, target_size=(128, 128))
+    test_image = image.img_to_array(test_image)
+    test_image = np.expand_dims(test_image, axis=0)
     result = classifier.predict(test_image)
     return result[0][0]
 
@@ -62,7 +62,7 @@ def create_frames_for_slots(path):
     while video.isOpened():
         frame_id = video.get(1)
         ret, frame = video.read()
-        if frame_id == 1 or frame_id == count or frame_id == count/2:
+        if frame_id == 1 or frame_id == count or frame_id == count / 2:
             filename = frame_path + str(int(frame_id)) + ".jpg"
             cv2.imwrite(filename, frame)
     return frame_path
@@ -93,7 +93,7 @@ def home(request):
                 print("Accept incoming file:", filename)
                 handle_uploaded_file(upload, destination)
                 print("Saved to:", destination)
-                path = create_frames_for_slots(destination)
+                path = glob.glob(create_frames_for_slots(destination))
                 global classifier
                 average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
                 context = {
@@ -110,7 +110,7 @@ def home(request):
                 destination = download_video_from_url(url, target)
                 print(url)
                 print(target)
-                path = create_frames_for_slots(destination)
+                path = glob.glob(create_frames_for_slots(destination))
                 global classifier
                 average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
                 context = {
