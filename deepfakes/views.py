@@ -13,7 +13,7 @@ import os
 import glob
 
 global classifier
-classifier = tf.keras.models.load_model('MODEL.h5')
+classifier = tf.keras.models.load_model(file_path = settings.MEDIA_URL + 'faceswap/' + 'MODEL.h5')
 
 
 # predict input image images
