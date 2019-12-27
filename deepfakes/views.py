@@ -70,52 +70,57 @@ def create_frames_for_slots(path):
 
 def home(request):
     context = {}
-    if request.method == 'POST':
-        if len(request.POST.get("url", "")) == 0:
-            print('file uploaded')
-            # target = os.path.join(APP_ROOT, 'images/')
-            target = os.path.join(settings.STATICFILES_DIRS[0], 'faceswap/upload')
-            print(target)
-            if not os.path.exists(target):
-                os.mkdir(target)
+    try:
+        if request.method == 'POST':
+            if len(request.POST.get("url", "")) == 0:
+                print('file uploaded')
+                # target = os.path.join(APP_ROOT, 'images/')
+                target = os.path.join(settings.STATICFILES_DIRS[0], 'faceswap/upload')
+                print(target)
+                if not os.path.exists(target):
+                    os.mkdir(target)
+                else:
+                    print("Couldn't create upload directory: {}".format(target))
+                upload = request.FILES["file"]
+                print(upload)
+                print("{} is the file name".format(upload.name))
+                filename = upload.name
+                extension = filename.split('.')[1]
+                destination = "/".join([target, filename])
+                if os.path.exists(destination):
+                    new_path = tempfile.mkstemp()[1].split('/')[2]
+                    destination = destination.replace(filename, new_path + '.' + extension)
+                print("Accept incoming file:", filename)
+                handle_uploaded_file(upload, destination)
+                print("Saved to:", destination)
+                path = create_frames_for_slots(destination)
+                global classifier
+                average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
+                context = {
+                    'video': 'static/faceswap/upload/' + filename,
+                    'msg': 'output',
+                    'result': 'To be uploaded',
+                    'score': average_score
+                }
             else:
-                print("Couldn't create upload directory: {}".format(target))
-            upload = request.FILES["file"]
-            print(upload)
-            print("{} is the file name".format(upload.name))
-            filename = upload.name
-            extension = filename.split('.')[1]
-            destination = "/".join([target, filename])
-            if os.path.exists(destination):
-                new_path = tempfile.mkstemp()[1].split('/')[2]
-                destination = destination.replace(filename, new_path + '.' + extension)
-            print("Accept incoming file:", filename)
-            handle_uploaded_file(upload, destination)
-            print("Saved to:", destination)
-            path = create_frames_for_slots(destination)
-            global classifier
-            average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
-            context = {
-                'video': 'static/faceswap/upload/' + filename,
-                'msg': 'output',
-                'result': 'To be uploaded',
-                'score': average_score
-            }
-        else:
-            print("url")
-            url = request.POST.get("url", "")
-            target = os.path.join(settings.STATICFILES_DIRS[0], 'faceswap/upload')
-            # destination = target + tempfile.mkstemp()[1].split('/')[2]
-            destination = download_video_from_url(url, target)
-            print(url)
-            print(target)
-            path = create_frames_for_slots(destination)
-            global classifier
-            average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
-            context = {
-                'video': 'static/faceswap/upload' + destination.replace(target, ''),
-                'msg': 'output',
-                'result': 'To be uploaded',
-                'score': average_score
-            }
+                print("url")
+                url = request.POST.get("url", "")
+                target = os.path.join(settings.STATICFILES_DIRS[0], 'faceswap/upload')
+                # destination = target + tempfile.mkstemp()[1].split('/')[2]
+                destination = download_video_from_url(url, target)
+                print(url)
+                print(target)
+                path = create_frames_for_slots(destination)
+                global classifier
+                average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
+                context = {
+                    'video': 'static/faceswap/upload' + destination.replace(target, ''),
+                    'msg': 'output',
+                    'result': 'To be uploaded',
+                    'score': average_score
+                }
+    except Exception as e:
+        context = {
+            "error": str(e)
+        }
     return render(request, 'deepfakes/index.html', context)
