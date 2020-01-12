@@ -35,7 +35,7 @@ def download_video_from_url(link, destination):
     name = "sample"
     if 'youtube' in link:
         yt = YouTube(link)
-        name = yt.streams.filter(res="144p").first().download("./")
+        name = yt.streams.filter(res="144p").first().download(destination)
     elif link.split('/')[len(link.split('/')) - 1].__contains__('.'):
         urllib.request.urlretrieve(link, destination)
     else:
@@ -52,19 +52,21 @@ def create_frames_for_slots(path):
     video = cv2.VideoCapture(path)
     count = 0
     frame_rate = video.get(5)
-    while video.isOpened():
-        frame_id = video.get(1)
-        if frame_id % math.floor(frame_rate) == 0:
-            count += 1
+    print(video.isOpened())
+    property_id = int(cv2.CAP_PROP_FRAME_COUNT)
+    count = int(cv2.VideoCapture.get(video, property_id))
     # create frames
     frame_path = path.replace(".mp4", "") + "/"
     os.mkdir(frame_path)
     while video.isOpened():
-        frame_id = video.get(1)
+        frame_id = int(video.get(1))
         ret, frame = video.read()
-        if frame_id == 1 or frame_id == count or frame_id == count / 2:
-            filename = frame_path + str(int(frame_id)) + ".jpg"
+        if frame_id == 1 or frame_id == count -1 or frame_id == int(count / 2):
+            filename = frame_path + str(frame_id) + ".jpg"
+            print(frame_id)
             cv2.imwrite(filename, frame)
+        if frame is None:
+            break
     return frame_path
 
 
@@ -85,23 +87,25 @@ def home(request):
                 print(upload)
                 print("{} is the file name".format(upload.name))
                 filename = upload.name
-                extension = filename.split('.')[1]
+                extension = filename[filename.rfind('.') + 1: ]
                 destination = "/".join([target, filename])
                 if os.path.exists(destination):
                     new_path = tempfile.mkstemp()[1].split('/')[2]
                     destination = destination.replace(filename, new_path + '.' + extension)
+                    print(extension)
+                    print(destination)
                 print("Accept incoming file:", filename)
                 handle_uploaded_file(upload, destination)
                 print("Saved to:", destination)
-                path = glob.glob(create_frames_for_slots(destination))
+                path = glob.glob(create_frames_for_slots(destination) + '*.jpg')
                 global classifier
                 average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
                 print(average_score)
                 context = {
                     'video': 'static/faceswap/upload/' + filename,
                     'msg': 'output',
-                    'result': 'To be uploaded',
-                    'score9': "%.2f" % (float(average_score)*100)
+                    'result': 'fake' if average_score < 50 else 'real',
+                    'score': "%.2f" % (float(average_score)*100)
                 }
             else:
                 print("url")
@@ -111,14 +115,14 @@ def home(request):
                 destination = download_video_from_url(url, target)
                 print(url)
                 print(target)
-                path = glob.glob(create_frames_for_slots(destination))
+                path = glob.glob(create_frames_for_slots(destination) + '*.jpg')
                 global classifier
                 average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
                 print(average_score)
                 context = {
                     'video': 'static/faceswap/upload' + destination.replace(target, ''),
                     'msg': 'output',
-                    'result': 'To be uploaded',
+                    'result': 'fake' if average_score < 50 else 'real',
                     'score': "%.2f" % (float(average_score)*100)
 
                 }
