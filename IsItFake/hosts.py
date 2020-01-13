@@ -3,7 +3,6 @@ from django_hosts import patterns, host
 
 
 host_patterns = patterns(
-    '',
     host(r'www', 'www.urls', name='www'),
     host(r'admin', settings.ROOT_URLCONF, name='admin'),
     host(r'clickbait', 'clickbait.urls', name='clickbait'),

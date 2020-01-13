@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_hosts',
     'corsheaders',
+    'pwa'
 ]
 
 MY_APPS = [
@@ -143,7 +144,6 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "IsItFake/vision.json"
 SERVICE = build("customsearch", "v1",
                 developerKey="AIzaSyAaJ8-PEOVH4AiNEZ2KcS24h48tPIkrmdY")
 
-
 CSRF_TRUSTED_ORIGINS = ['clickbait.isitfake.co.in',
                         'www    .isitfake.co.in',
                         'isitfake.co.in',
@@ -156,5 +156,18 @@ CORS_ORIGIN_WHITELIST = (
     'https://www.isitfake.co.in'
 )
 
-
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+PWA_APP_NAME = 'IsItFake'
+PWA_APP_DESCRIPTION = "App for Fake News detection, Clickbait detection, Fake Video detection, and Quote examiner."
+PWA_APP_THEME_COLOR = '#3298dc'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'portrait'
+PWA_APP_START_URL = '/'
+PWA_APP_ICONS = [{'src': '/static/icon.png', 'sizes': '160x160'}]
+PWA_APP_SPLASH_SCREEN = [{'src': '/static/images/icons/splash-640x1136.png',
+                          'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'}]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'

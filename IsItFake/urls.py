@@ -20,5 +20,6 @@ from api.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('pwa.urls'))
 ]
 
