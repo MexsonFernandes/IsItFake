@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import home
+from .views import home, download
 
 urlpatterns = [
     path('', home),
+    path('download/faceswap/<str:file_name>', download)
 ]

@@ -2,6 +2,7 @@ import math
 import tempfile
 from django.shortcuts import render
 from django.conf import settings
+from django.http import JsonResponse, HttpResponse
 import urllib.request
 from pytube import YouTube
 import requests
@@ -11,6 +12,9 @@ import numpy as np
 import tensorflow as tf
 import os
 import glob
+from wsgiref.util import FileWrapper
+import mimetypes
+from django.utils.encoding import smart_str
 
 global classifier
 classifier = tf.keras.models.load_model(settings.MEDIA_URL + 'faceswap/' + 'MODEL.h5')
@@ -45,6 +49,19 @@ def download_video_from_url(link, destination):
                 if chunk:
                     f.write(chunk)
     return name
+
+
+def download(request, file_name):
+    print(file_name)
+    file_path = settings.MEDIA_URL + 'faceswap/' + file_name
+    file_wrapper = FileWrapper(open(file_path, 'rb'))
+    file_mimetype = mimetypes.guess_type(file_path)
+    response = HttpResponse(file_wrapper, content_type=file_mimetype)
+    response['X-Sendfile'] = file_path
+    response['Content-Length'] = os.stat(file_path).st_size
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(file_name)
+    print(response)
+    return response
 
 
 def create_frames_for_slots(path):
@@ -104,7 +121,7 @@ def home(request):
                 context = {
                     'video': 'static/faceswap/upload/' + filename,
                     'msg': 'output',
-                    'result': 'fake' if average_score < 50 else 'real',
+                    'result': 'real' if average_score < 50 else 'fake',
                     'score': "%.2f" % (float(average_score)*100)
                 }
             else:
@@ -122,7 +139,7 @@ def home(request):
                 context = {
                     'video': 'static/faceswap/upload' + destination.replace(target, ''),
                     'msg': 'output',
-                    'result': 'fake' if average_score < 50 else 'real',
+                    'result': 'real' if average_score < 50 else 'fake',
                     'score': "%.2f" % (float(average_score)*100)
 
                 }
