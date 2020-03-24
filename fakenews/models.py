@@ -1,3 +1,8 @@
 from django.db import models
+from django.utils import timezone
 
-# Create your models here.
+class UserInputModel(models.Model):
+    added_on = models.DateTimeField(default=timezone.now)
+    news = models.CharField(max_length=5000)
+    url = models.URLField()
+    output = models.CharField(max_length=50)

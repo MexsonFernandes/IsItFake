@@ -5,6 +5,7 @@ from newspaper import Article
 import pickle
 from django.conf import settings
 import traceback
+from fakenews.models import UserInputModel
 
 
 def home(request):
@@ -59,6 +60,12 @@ def home(request):
                 out = predict(text)
                 context['out'] = 'fake' if out == 1 else 'real'
                 context['input'] = text
+                obj = UserInputModel(
+                    news=text,
+                    output=context['out'],
+                    url=''
+                )
+                obj.save()
             else:
                 url = request.POST.get('url')
                 _, head, content = headline_text(url)
@@ -66,6 +73,12 @@ def home(request):
                 out = predict(content)
                 context['out'] = 'fake' if out == 1 else 'real'
                 context['input'] = content
+                obj = UserInputModel(
+                    news=content,
+                    output=context['out'],
+                    url=url
+                )
+                obj.save()
 
         except Exception as e:
             print(str(e))

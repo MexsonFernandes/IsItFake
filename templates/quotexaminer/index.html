@@ -27,7 +27,7 @@
             }
         };
         openModal()
-        </script>
+    </script>
 </head>
 <body>
     <style>
@@ -63,7 +63,9 @@
     <section class="section">
         <div class="container">
 
-            <img src="{% static 'quotexaminer/home.gif' %}"/>
+            <img class="title-image" src="{% static 'quotexaminer/quot.png' %}"/>
+
+            <img class="title-image" src="{% static 'quotexaminer/back.png' %}"/>
 
             <h2 class="subtitle">
                 <div class="card">
@@ -100,7 +102,7 @@
                                        Preview image<br/>
                                         <img id="preview-image" width="300px" height="300px"/>
                                     </div>
-                                    <input type="submit" class="button is-info" value="Check">
+                                    <input type="submit" class="button is-dark" value="Check">
                                 <br/><br/>
                                     <span>
                                             <a href="download/quotexaminer/verified.jpg">
@@ -115,7 +117,6 @@
                                         </a>
                                      </span>
                             </form>
-
                         </div>
                     </div>
                     <footer class="card-footer">
@@ -196,5 +197,30 @@
             e.preventDefault();
         })
     </script>
+
+    <style>
+        .card {
+            border-radius: 10px;
+            background-color: #131313;
+            color: #fff;   
+        }
+        .navbar {
+            background-color: #000;
+        }
+        .title {
+            color: #fff;
+        }
+        .footer {
+            background-color: #000;
+        }
+        strong {
+            color: #fff;
+        }
+
+        .title-image {
+            margin: auto;
+            display: block;
+        }
+    </style>
 </body>
 </html>

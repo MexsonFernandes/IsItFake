@@ -15,6 +15,7 @@ from google.cloud import vision
 from googleapiclient.discovery import build
 from django.views.decorators.csrf import csrf_exempt
 from wsgiref.util import FileWrapper
+from quotexaminer.models import UserInputModel
 
 
 def words(text):
@@ -165,9 +166,14 @@ def home(request):
                 'a': r,
                 'v': st
             }
+            obj = UserInputModel(image=request.FILES["file"],
+                quote=res,
+                author=r,
+                output=st)
+            obj.save()
             return render(request, "quotexaminer/disp.html", context=context)
         else:
             return render(request, 'quotexaminer/index.html')
     except Exception as e:
         print(str(e))
-        return JsonResponse({'error': 'Image parsing failed!', 'track': str(e)})
+        return render(request, 'quotexaminer/index.html')

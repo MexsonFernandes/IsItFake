@@ -15,6 +15,8 @@ import glob
 from wsgiref.util import FileWrapper
 import mimetypes
 from django.utils.encoding import smart_str
+from deepfakes.models import UserInputModel
+
 
 global classifier
 classifier = tf.keras.models.load_model(settings.MEDIA_URL + 'faceswap/' + 'MODEL.h5')
@@ -124,6 +126,13 @@ def home(request):
                     'result': 'real' if average_score < 50 else 'fake',
                     'score': "%.2f" % (float(average_score)*100)
                 }
+                obj = UserInputModel(
+                    video = 'static/faceswap/upload/' + filename,
+                    output = context['result'],
+                    score = context['score'],
+                    url = ''
+                )
+                obj.save()
             else:
                 print("url")
                 url = request.POST.get("url", "")
@@ -141,8 +150,14 @@ def home(request):
                     'msg': 'output',
                     'result': 'real' if average_score < 50 else 'fake',
                     'score': "%.2f" % (float(average_score)*100)
-
                 }
+                obj = UserInputModel(
+                    video = 'static/faceswap/upload' + destination.replace(target, ''),
+                    output = context['result'],
+                    score = context['score'],
+                    url = url
+                )
+                obj.save()
     except Exception as e:
         context = {
             "error": str(e)

@@ -90,10 +90,15 @@ WSGI_APPLICATION = 'IsItFake.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'iaxddnvk',
+        'USER': 'iaxddnvk',
+        'PASSWORD': 'd3q5Q9QyHFwjFqtMe6qWlcUrNQ-RK1W0',
+        'HOST': 'satao.db.elephantsql.com',
+        'PORT': '5432',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

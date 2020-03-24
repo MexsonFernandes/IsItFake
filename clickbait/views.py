@@ -16,6 +16,9 @@ ps = PorterStemmer()
 from django.views.decorators.csrf import csrf_exempt
 from numpy.core._multiarray_umath import ndarray
 from django.http import JsonResponse
+from clickbait.models import UserInputModel
+
+
 template = 'clickbait/index.html'
 model_cnn = load_model(settings.MEDIA_URL + 'clickbait/host.h5')
 MAX_VOCAB_SIZE = 20000
@@ -153,6 +156,14 @@ def home(request):
             pred, score = check_clickbaitness(text)
             context['score'] = '%.5f' % score[0] if pred == 0 else '%.5f' % score[1]
             context['output'] = 'Text is ' + ('clickbait' if pred == 0 else 'not a clickbait')
+            obj = UserInputModel(
+                image='',
+                cluster=cluster,
+                output=context['output'],
+                text=text,
+                pred=pred,
+                score=context['score'])
+            obj.save()
         except Exception as e:
             print(str(e))
             context['error'] = str(e)
@@ -175,10 +186,19 @@ def home(request):
             pred, score = check_clickbaitness(fetched)
             context['score'] = '%.5f' % score[0] if pred == 0 else '%.5f' % score[1]
             context['output'] = 'Image content is ' + ('clickbait' if pred == 0 else 'not a clickbait')
+            obj = UserInputModel(
+                image=request.FILES['file'],
+                cluster=cluster,
+                output=context['output'],
+                text=fetched,
+                pred=pred,
+                score=context['score'])
+            obj.save()
         except Exception as e:
             print(str(e))
             traceback.print_exc()
             context['error'] = str(e)
+    
     return render(request, template, context)
 
 
