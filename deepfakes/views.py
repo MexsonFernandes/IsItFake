@@ -65,8 +65,7 @@ def download(request, file_name):
     print(response)
     return response
 
-
-def create_frames_for_slots(path):
+def create_frames_for_slots(path, start_sec, total_sec):
     # count frame
     video = cv2.VideoCapture(path)
     count = 0
@@ -77,13 +76,19 @@ def create_frames_for_slots(path):
     # create frames
     frame_path = path.replace(".mp4", "") + "/"
     os.mkdir(frame_path)
+    frame_count_user = 0
     while video.isOpened():
         frame_id = int(video.get(1))
         ret, frame = video.read()
+        # write frame from users choice
+        if frame_id == start_sec + frame_count_user:
+            if frame_count_user > total_sec:
+                break
+            cv2.imwrite(frame_path + str(frame_id) + ".jpg", frame)
+            frame_count_user += 1
+            pass
         if frame_id == 1 or frame_id == count -1 or frame_id == int(count / 2):
-            filename = frame_path + str(frame_id) + ".jpg"
-            print(frame_id)
-            cv2.imwrite(filename, frame)
+            cv2.imwrite(frame_path + str(frame_id) + ".jpg", frame)
         if frame is None:
             break
     return frame_path
@@ -93,6 +98,8 @@ def home(request):
     context = {}
     try:
         if request.method == 'POST':
+            start_sec = request.POST.get("start_sec", -1)
+            total_sec = request.POST.get("total_sec", -1)
             if len(request.POST.get("url", "")) == 0:
                 print('file uploaded')
                 # target = os.path.join(APP_ROOT, 'images/')
@@ -116,7 +123,7 @@ def home(request):
                 print("Accept incoming file:", filename)
                 handle_uploaded_file(upload, destination)
                 print("Saved to:", destination)
-                path = glob.glob(create_frames_for_slots(destination) + '*.jpg')
+                path = glob.glob(create_frames_for_slots(destination) + '*.jpg', start_sec, total_sec)
                 global classifier
                 average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
                 print(average_score)
@@ -141,7 +148,7 @@ def home(request):
                 destination = download_video_from_url(url, target)
                 print(url)
                 print(target)
-                path = glob.glob(create_frames_for_slots(destination) + '*.jpg')
+                path = glob.glob(create_frames_for_slots(destination) + '*.jpg', start_sec, total_sec)
                 global classifier
                 average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
                 print(average_score)
