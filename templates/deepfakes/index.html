@@ -164,12 +164,13 @@
                             <br/>
 
                              <button class="button is-light">
-                                 <a href="download/faceswap/fake.mp4">
+                                 <a style="text-decoration: none;" href="download/faceswap/fake.mp4">
                                      Download fake video
                                  </a>
-                             </button>
+                             </button><br/>
+
                              <button class="button is-light">
-                                 <a href="download/faceswap/real.mp4">
+                                 <a style="text-decoration: none;" href="download/faceswap/real.mp4">
                                      Download real video
                                  </a>
                              </button>
@@ -195,7 +196,9 @@
                    <div class="title">
                        Predicted: <h4 class="output">{{result}}</h4><br/>
                        Input content: <a href="{{video}}"/>Video File</a><br/>
+                       {% if 'ake' in result %}
                        Score: <h4 class="output">{{score}}%</h4>
+                       {% endif%}
                        <br/>
                     </div>
                 </div>
@@ -236,6 +239,9 @@
     <style>
         .container {
         max-width: 615px;
+        }
+        a {
+            text-decoration: none;
         }
     </style>
 

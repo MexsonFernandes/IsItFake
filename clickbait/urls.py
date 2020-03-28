@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import home, graph, api_text
+from .views import home, graph, api_text, download
 
 urlpatterns = [
     path('', home),
     path('graph', graph),
-    path('api', api_text)
+    path('api', api_text),
+    path('download', download, name="download")
 ]

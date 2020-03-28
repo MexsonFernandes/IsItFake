@@ -8,8 +8,10 @@ from google.cloud import vision
 from keras.models import load_model
 from keras_preprocessing.sequence import pad_sequences
 from keras_preprocessing.text import Tokenizer
+from django.http import JsonResponse, HttpResponse
 import traceback
 import pandas as pd
+from django.utils.encoding import smart_str
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 ps = PorterStemmer()
@@ -17,6 +19,9 @@ from django.views.decorators.csrf import csrf_exempt
 from numpy.core._multiarray_umath import ndarray
 from django.http import JsonResponse
 from clickbait.models import UserInputModel
+from wsgiref.util import FileWrapper
+import mimetypes
+import os
 
 
 template = 'clickbait/index.html'
@@ -206,3 +211,17 @@ def graph(request):
     input_text = request.GET.get('text', '')
     cluster = request.GET.get('cluster', '')
     return render(request, 'clickbait/graph.html', {'input': input_text, 'cluster': cluster})
+
+
+
+def download(request):
+    file_name = 'fake.png'
+    file_path = settings.MEDIA_URL + 'clickbait/' + file_name
+    file_wrapper = FileWrapper(open(file_path, 'rb'))
+    file_mimetype = mimetypes.guess_type(file_path)
+    response = HttpResponse(file_wrapper, content_type=file_mimetype)
+    response['X-Sendfile'] = file_path
+    response['Content-Length'] = os.stat(file_path).st_size
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(file_name)
+    print(response)
+    return response

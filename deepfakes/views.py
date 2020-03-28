@@ -70,15 +70,16 @@ def create_frames_for_slots(path, start_sec, total_sec):
     video = cv2.VideoCapture(path)
     count = 0
     frame_rate = video.get(5)
-    print(video.isOpened())
     property_id = int(cv2.CAP_PROP_FRAME_COUNT)
     count = int(cv2.VideoCapture.get(video, property_id))
     # create frames
     frame_path = path.replace(".mp4", "") + "/"
     os.mkdir(frame_path)
     frame_count_user = 0
+    print('d')
     while video.isOpened():
         frame_id = int(video.get(1))
+        print(frame_id)
         ret, frame = video.read()
         # write frame from users choice
         if frame_id == start_sec + frame_count_user:
@@ -98,10 +99,17 @@ def home(request):
     context = {}
     try:
         if request.method == 'POST':
-            start_sec = request.POST.get("start_sec", -1)
-            total_sec = request.POST.get("total_sec", -1)
+            start_sec = 0
+            try:
+                start_sec = int(request.POST.get("start_sec", -1))
+            except Exception as e:
+                start_sec = 0
+            total_sec = 0
+            try:
+                total_sec = int(request.POST.get("total_sec", -1))
+            except Exception as e:
+                total_sec = 0
             if len(request.POST.get("url", "")) == 0:
-                print('file uploaded')
                 # target = os.path.join(APP_ROOT, 'images/')
                 target = os.path.join(settings.STATICFILES_DIRS[0], 'faceswap/upload')
                 print(target)
@@ -123,14 +131,15 @@ def home(request):
                 print("Accept incoming file:", filename)
                 handle_uploaded_file(upload, destination)
                 print("Saved to:", destination)
-                path = glob.glob(create_frames_for_slots(destination) + '*.jpg', start_sec, total_sec)
+                print(start_sec)
+                path = glob.glob(create_frames_for_slots(destination, int(start_sec), int(total_sec)) + '/*.jpg')
                 global classifier
                 average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
                 print(average_score)
                 context = {
                     'video': 'static/faceswap/upload/' + filename,
                     'msg': 'output',
-                    'result': 'real' if average_score < 50 else 'fake',
+                    'result': 'real' if average_score < 0.5 else 'fake',
                     'score': "%.2f" % (float(average_score)*100)
                 }
                 obj = UserInputModel(
@@ -148,14 +157,14 @@ def home(request):
                 destination = download_video_from_url(url, target)
                 print(url)
                 print(target)
-                path = glob.glob(create_frames_for_slots(destination) + '*.jpg', start_sec, total_sec)
+                path = glob.glob(create_frames_for_slots(destination, int(start_sec), int(total_sec)) + '*.jpg')
                 global classifier
                 average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
                 print(average_score)
                 context = {
                     'video': 'static/faceswap/upload' + destination.replace(target, ''),
                     'msg': 'output',
-                    'result': 'real' if average_score < 50 else 'fake',
+                    'result': 'real' if average_score < 0.5 else 'fake',
                     'score': "%.2f" % (float(average_score)*100)
                 }
                 obj = UserInputModel(
