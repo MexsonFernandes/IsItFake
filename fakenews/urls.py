@@ -18,6 +18,7 @@ from django.urls import path
 from .views import home, FakeNewsViews
 
 urlpatterns = [
-    path('', FakeNewsViews.as_view()),
+    # path('', FakeNewsViews.as_view()),
+    path('', home)
     # path('<str:param>/', FakeNewsViews.as_view()),
 ]

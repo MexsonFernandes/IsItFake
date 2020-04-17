@@ -43,7 +43,7 @@ def predict(text):
     return out[0]
 
 
-@csrf_exempt
+# @csrf_exempt
 def home(request):
     context = {
         'msg': ''
@@ -110,4 +110,5 @@ class FakeNewsViews(generics.CreateAPIView):
         context = {'status': True,}
         context['data'] = request.data
         # HasAPIKey.
+        print('df')
         return (Response(context) if format == None else Response(context, template_name='fakenews/index.html'))
