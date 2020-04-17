@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django_hosts',
     'corsheaders',
     'pwa',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework_api_key',
 ]
 
 MY_APPS = [
@@ -177,3 +178,12 @@ PWA_APP_SPLASH_SCREEN = [{'src': '/static/images/icons/splash-640x1136.png',
                           'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'}]
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',        
+        'rest_framework.renderers.TemplateHTMLRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+}

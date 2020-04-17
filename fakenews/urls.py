@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import home
+from .views import home, FakeNewsViews
 
 urlpatterns = [
-    path('', home),
+    path('', FakeNewsViews.as_view()),
+    # path('<str:param>/', FakeNewsViews.as_view()),
 ]

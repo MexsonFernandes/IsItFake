@@ -20,4 +20,5 @@ from .views import home
 urlpatterns = [
     path('', home),
     path('', include('pwa.urls')),
+    path('admin/', admin.site.urls),
 ]

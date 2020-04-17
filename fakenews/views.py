@@ -6,10 +6,12 @@ import pickle
 from django.conf import settings
 import traceback
 from fakenews.models import UserInputModel
-
-
-def home(request):
-    return render(request, 'fakenews/index.html')
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer, BrowsableAPIRenderer
+from rest_framework import generics
+from rest_framework.response import Response
+from fakenews.serializers import FakeNewsSerializer
+from rest_framework_api_key.models import APIKey
+from rest_framework_api.key.permissions import HasAPIKey
 
 
 def headline_text(url='', summary=False):
@@ -90,3 +92,22 @@ def home(request):
                 context['error'] = 'Link is incorrect'
     return render(request, 'fakenews/index.html', context)
 
+
+class FakeNewsViews(generics.CreateAPIView):
+    """
+    A view that returns a templated API representation of fakenews service
+    """
+    serializer_class = FakeNewsSerializer
+
+    def get(self, request, format=None):
+        context = {'status': True, 'message': 'GET request'}
+        if format == None:
+            return Response(context, template_name='fakenews/index.html')
+        else:
+            return Response(context)
+
+    def post(self, request, *args, **kwargs):
+        context = {'status': True,}
+        context['data'] = request.data
+        HasAPIKey.
+        return (Response(context) if format == None else Response(context, template_name='fakenews/index.html'))
