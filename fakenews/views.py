@@ -109,5 +109,5 @@ class FakeNewsViews(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         context = {'status': True,}
         context['data'] = request.data
-        HasAPIKey.
+        # HasAPIKey.
         return (Response(context) if format == None else Response(context, template_name='fakenews/index.html'))
