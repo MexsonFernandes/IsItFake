@@ -81,9 +81,9 @@
         <div class="container">
             <h2 class="subtitle">
                 <div class="card notification">
-                    <header class="card-header is-info notification">
+                    <header class="card-header is-info notification ">
                         <p class="card-header-title has-text-white has-text-centered">
-                            Verify fake video content
+                            Verify DeepFake video content
                         </p>
                     </header>
                     <div class="card-content">
@@ -114,23 +114,31 @@
 
                                 <h1 class="is-size-4 has-text-black has-text-centered has-text-weight-semibold">OR</h1>
 
-                                 <div class="columns is-mobile">
-                                    <div class="column">URL Link</div>
-                                    <div class="column is-two-thirds">
-                                        <div class="control">
-                                            <input  name="url"
+                                <div class="field is-horizontal">
+                                    <div class="field-label is-normal">
+                                        <label class="label">URL Link</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="control">
+                                                <input  name="url"
                                                     class="input is-info"
                                                     id="url"
                                                     placeholder="eg. https://www.youtube.com/watch?v=NLb-gZNKzT8"
-                                                   />
+                                                    />
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
+                                <br/><br/>
 
-                                <div class="columns is-mobile">
-                                    <div class="column">Video start second</div>
-                                    <div class="column is-two-thirds">
-                                        <div class="control">
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label is-normal">
+                                        <label class="label">Start Frame</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
                                             <input  name="start_sec"
                                                     class="input is-info"
                                                     id="url"
@@ -141,20 +149,23 @@
                                     </div>
                                 </div>
 
-                                <div class="columns is-mobile">
-                                    <div class="column">Total seconds to test</div>
-                                    <div class="column is-two-thirds">
-                                        <div class="control">
-                                            <input  name="total_sec"
+                                 <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Total Frame</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                        <p class="control">
+                                             <input  name="total_sec"
                                                     class="input is-info"
                                                     id="url"
                                                     type="number"
                                                     placeholder="eg. 10"
                                                    />
+                                        </p>
                                         </div>
                                     </div>
                                 </div>
-
 
                                 <button class="button is-info">Submit</button>
                                 <span class="button is-light" onclick="document.getElementById('text-input').value = '';
@@ -163,13 +174,13 @@
                             </form>
                             <br/>
 
-                             <button class="button is-light">
+                             <button class="button is-secondary">
                                  <a style="text-decoration: none;" href="download/faceswap/fake.mp4">
                                      Download fake video
                                  </a>
-                             </button><br/>
+                             </button>
 
-                             <button class="button is-light">
+                             <button class="button is-secondary">
                                  <a style="text-decoration: none;" href="download/faceswap/real.mp4">
                                      Download real video
                                  </a>
