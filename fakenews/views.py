@@ -11,7 +11,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from fakenews.serializers import FakeNewsSerializer
 from rest_framework_api_key.models import APIKey
-from rest_framework_api.key.permissions import HasAPIKey
+# from rest_framework_api.key.permissions import HasAPIKey
 
 
 def headline_text(url='', summary=False):
