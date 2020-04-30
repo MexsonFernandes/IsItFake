@@ -141,7 +141,7 @@ def home(request):
                 context = {
                     'video': destination.replace(settings.BASE_DIR, ''),
                     'msg': 'output',
-                    'result': 'real' if average_score < 0.5 else 'fake',
+                    'result': 'real' if average_score > 0.5 else 'fake',
                     'score': "%.2f" % (float(average_score)*100)
                 }
                 print(os.path.join(settings.BASE_DIR, destination.replace('.mp4', '') + '/*.jpg'))
@@ -171,7 +171,7 @@ def home(request):
                 context = {
                     'video': 'static/faceswap/upload' + destination.replace(target, ''),
                     'msg': 'output',
-                    'result': 'real' if average_score < 0.5 else 'fake',
+                    'result': 'real' if average_score > 0.5 else 'fake',
                     'score': "%.2f" % (float(average_score)*100),
                 }
                 context['frames'] = glob.glob(os.path.join(settings.BASE_DIR, destination.replace('.mp4', '') + '/*.jpg'))[:10]
