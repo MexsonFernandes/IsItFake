@@ -77,23 +77,25 @@ def create_frames_for_slots(path, start_sec, total_sec):
     os.mkdir(frame_path)
     frame_count_user = 0
     print('d')
+    if start_sec < 0:
+        start_sec = 0
+        total_sec = 100
     while video.isOpened():
         frame_id = int(video.get(1))
-        print(frame_id)
+        print(count)
         ret, frame = video.read()
         # write frame from users choice
         if frame_id == start_sec + frame_count_user:
             if frame_count_user > total_sec:
                 break
-            cv2.imwrite(frame_path + str(frame_id) + ".jpg", frame)
+            if not frame is None:
+                cv2.imwrite(frame_path + str(frame_id) + ".jpg", frame)
             frame_count_user += 1
             pass
         if frame_id == 1 or frame_id == count -1 or frame_id == int(count / 2):
-            cv2.imwrite(frame_path + str(frame_id) + ".jpg", frame)
-        if frame is None:
-            break
+            if not frame is None:
+                cv2.imwrite(frame_path + str(frame_id) + ".jpg", frame)
     return frame_path
-
 
 def home(request):
     context = {}
@@ -103,12 +105,12 @@ def home(request):
             try:
                 start_sec = int(request.POST.get("start_sec", -1))
             except Exception as e:
-                start_sec = 0
+                start_sec = -1
             total_sec = 0
             try:
                 total_sec = int(request.POST.get("total_sec", -1))
             except Exception as e:
-                total_sec = 0
+                total_sec = -1
             if len(request.POST.get("url", "")) == 0:
                 # target = os.path.join(APP_ROOT, 'images/')
                 target = os.path.join(settings.STATICFILES_DIRS[0], 'faceswap/upload')
@@ -137,11 +139,15 @@ def home(request):
                 average_score = sum([predict_image(img, classifier) for img in path]) / len(path)
                 print(average_score)
                 context = {
-                    'video': 'static/faceswap/upload/' + filename,
+                    'video': destination.replace(settings.BASE_DIR, ''),
                     'msg': 'output',
                     'result': 'real' if average_score < 0.5 else 'fake',
                     'score': "%.2f" % (float(average_score)*100)
                 }
+                print(os.path.join(settings.BASE_DIR, destination.replace('.mp4', '') + '/*.jpg'))
+                context['frames'] = glob.glob(os.path.join(settings.BASE_DIR, destination.replace('.mp4', '') + '/*.jpg'))[:10]
+                print(context['frames'])
+                context['frames'] = [i.replace(settings.BASE_DIR, '') for i in context['frames']] 
                 obj = UserInputModel(
                     video = 'static/faceswap/upload/' + filename,
                     output = context['result'],
@@ -153,8 +159,9 @@ def home(request):
                 print("url")
                 url = request.POST.get("url", "")
                 target = os.path.join(settings.STATICFILES_DIRS[0], 'faceswap/upload')
-                # destination = target + tempfile.mkstemp()[1].split('/')[2]
-                destination = download_video_from_url(url, target)
+                destination = target + '/' + tempfile.mkstemp()[1].split('/')[2]
+                os.mkdir(destination)
+                destination = download_video_from_url(url, destination)
                 print(url)
                 print(target)
                 path = glob.glob(create_frames_for_slots(destination, int(start_sec), int(total_sec)) + '*.jpg')
@@ -165,8 +172,11 @@ def home(request):
                     'video': 'static/faceswap/upload' + destination.replace(target, ''),
                     'msg': 'output',
                     'result': 'real' if average_score < 0.5 else 'fake',
-                    'score': "%.2f" % (float(average_score)*100)
+                    'score': "%.2f" % (float(average_score)*100),
                 }
+                context['frames'] = glob.glob(os.path.join(settings.BASE_DIR, destination.replace('.mp4', '') + '/*.jpg'))[:10]
+                print(context['frames'])
+                context['frames'] = [i.replace(settings.BASE_DIR, '') for i in context['frames']]
                 obj = UserInputModel(
                     video = 'static/faceswap/upload' + destination.replace(target, ''),
                     output = context['result'],
