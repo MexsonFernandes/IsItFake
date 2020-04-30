@@ -313,8 +313,8 @@
             document.getElementById('preview-block').style.display = 'block';
 
             var file_mb = $(this)[0].files[0].size/1024/1024;
-            if(file_mb.toFixed(2) > 2){
-                alert('to big, maximum is 2MB. You file size is: ' + file_mb +' MB');
+            if(file_mb.toFixed(2) > 25){
+                alert('to big, maximum is 25MB. You file size is: ' + file_mb +' MB');
             } else {
                 alert('it okey, your file has ' + file_mb + 'MB')
             }
