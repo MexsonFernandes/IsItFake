@@ -186,6 +186,6 @@ def home(request):
                 obj.save()
     except Exception as e:
         context = {
-            "error": str(e)
+            "error": str('Server is bit upset today!')
         }
     return render(request, 'deepfakes/index.html', context)
