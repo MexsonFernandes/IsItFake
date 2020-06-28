@@ -47,7 +47,7 @@ MY_APPS = [
     'clickbait',
     'fakenews',
     'quotexaminer',
-    'deepfakes'
+    'deepfakes',
 ]
 
 INSTALLED_APPS = INSTALLED_APPS + MY_APPS
@@ -187,3 +187,11 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
 }
+
+
+SEO_FOR_MODELS = [
+    'clickbait.models.UserInputModel',
+    'deepfakes.models.UserInputModel',
+    'fakenews.models.UserInputModel',
+    'quotexaminer.models.UserInputModel',
+]

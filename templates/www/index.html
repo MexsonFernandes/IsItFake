@@ -4,8 +4,12 @@
 <head>
     {% progressive_web_app_meta %}
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>IsItFake</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>IsItFake - Fake Content Checker</title>
+        <meta name="description" content="IsItFake is a progressive web application promotes the exchange of information among its users. The purpose of creating such web application is to expedite the users to detect different types of fake or unveriﬁed content seen in the form of quotes, videos, articles, clickbaits over social media platforms. The goal of developing such an application is to outreach the social media users to give the power to analyze the reliable, trustworthy and real content for social development.">
+        <link rel="canonical" href="https://isitfake.co.in/" />
+        <meta name="robots" content="index, follow">
+
         {% load staticfiles %}
         <link rel="stylesheet" href="{% static 'css/bulma.css' %}" />
         <script
@@ -134,6 +138,15 @@
                   
                 </div>
               </nav>
+
+             <h2 class="container subtitle has-text-justified" style="    padding: 20px;">
+                 A progressive web application that promotes the exchange of information among its users.
+                 The purpose of creating such web application is to expedite the users to detect different types
+                 of fake or unveriﬁed content seen in the form of quotes, videos, articles, clickbaits over social
+                 media platforms. The goal of developing such an application is to outreach the social media users
+                 to give the power to analyze the reliable, trustworthy and real content for social development.
+             </h2>
+
               <br>
               <!-- app container -->
               <h1 class="is-size-3 has-text-black has-text-centered has-text-weight-semibold">Explore our apps</h1>
@@ -178,69 +191,156 @@
      <!-- Sponsor container -->
               <h1 class="is-size-3 has-text-black has-text-centered has-text-weight-semibold">Data Resource</h1>
 <!--              <div class="container">-->
-                  <img src="{% static 'images/data.jpg' %}"/>
+                  <img src="{% static 'images/data.jpg' %}" alt="Data Resource"/>
 <!--              </div>-->
 
 
       <!-- Team container -->
                 <h1 id="team" class="is-size-3 has-text-black has-text-centered has-text-weight-semibold">Team</h1><br>
+
+    
                 <div class="container">
-                        <div class="columns p-2">
-                            <div class="column">
-                            </div>
-                            <div class="column">
-                              <div class="card team-card">
-                                <div class="card-image">
-                                  <figure class="mobile">
-                                    <img src="{% static 'images/parteek.jpg' %}" class="image" />
+                        <div class="columns is-multiline">
+                            <div class="column is-full">
+
+                                <article class="media">
+                                  <figure class="media-left">
+                                    <p class="is-128x128">
+                                      <img src="{% static 'images/parteek.jpg' %}" alt="Parteek Bhatia" class="" />
+                                    </p>
                                   </figure>
-                                  <div class="card-content">
-                                        <h3 class="mobile has-text-centered has-text-weight-semibold has-text-black is-size-4">Dr. Parteek Bhatia</h3>
-                                        <h5 class="mobile has-text-centered has-text-weight-semibold has-text-black is-size-6">Associate Professor</h5>
+                                  <div class="media-content">
+                                    <div class="content">
+                                        <strong>Dr. Parteek Bhatia</strong> <small></small>
+                                        <br>
+                                      <p class="has-text-justified">
+
+                                        Associate Professor in the Department of Computer Science and Engineering at Thapar
+                                            Institute of Engineering & Technology, Patiala. He has more than eighteen years of academic experience,
+                                            including six years at D.A.V College Amritsar. He has earned his B.Tech from SLIET and MS from BITS Pilani.
+                                            He has completed his Ph.D on "UNL Based Machine Translation System for Punjabi Language" from
+                                            Thapar Institute of Engineering & Technology. He has published more than 75 research papers and
+                                            articles in Journals, Conferences and Magazines of repute.
+                                      </p>
+
+                                        <strong>Read more <a target="_blank" class="is-link" href="https://parteekbhatia.com">parteekbhatia.com</a></strong>
+
+                                    </div>
+                                    <nav class="level is-mobile">
+                                      <div class="level-left">
+                                        <a class="level-item">
+                                          <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                                        </a>
+                                        <a class="level-item">
+                                          <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                                        </a>
+                                        <a class="level-item">
+                                          <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                                        </a>
                                       </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="column">
-                              <div class="card team-card">
-                                <div class="card-image">
-                                  <figure class="mobile">
-                                    <img src="{% static 'images/sawinder.jpg' %}" class="image" />
-                                  </figure>
-                                  <div class="card-content">
-                                        <h3 class="mobile has-text-centered has-text-weight-semibold has-text-black is-size-4">Sawinder Kaur</h3>
-                                        <h5 class="mobile has-text-centered has-text-weight-semibold has-text-black is-size-6">Phd Scholar</h5>
+                                    </nav>
                                   </div>
-                                </div>
-                              </div>
-                            </div>
+                                </article>
 
-                             <div class="column">
-                             <div class="card team-card">
-                                <div class="card-image">
-                                  <figure class="mobile">
-                                    <img src="{% static 'images/mexson.png' %}" class="image" />
+                              </div>
+
+                                <div class="column is-full">
+
+                                <article class="media">
+                                  <figure class="media-left">
+                                    <p class="is-128x128">
+                                       <img src="{% static 'images/sawinder.jpg' %}" alt="Sawinder Kaur" width="138px" height="181px" />
+                                    </p>
                                   </figure>
-                                  <div class="card-content">
-                                        <h3 class="mobile has-text-centered has-text-weight-semibold has-text-black is-size-5">Mexson Fernandes</h3>
-                                        <h5 class="mobile has-text-centered has-text-weight-semibold has-text-black is-size-6">Programmer</h5>
+                                  <div class="media-content">
+                                    <div class="content">
+                                        <strong>Sawinder Kaur</strong> <small></small>
+                                        <br>
+                                      <p class="has-text-justified">
+
+                                        Sawinder kaur is a Research Scholar at Thapar Institute of Engineering and Technology,
+                                          Patiala and has completed Masters of Engineering from Thapar University in 2016. She
+                                          is currently working as Research Scholar with Computer Science Department Thapar Institute
+                                          of Engineering and Technology, Punjab, India since July 2017. Her research interest includes
+                                          online fake news detection, machine learning, deep learning, data retrieval, manipulation and
+                                          visualization from social media platforms. She has published three research papers in SCI journals
+                                          and two conference papers to detect fake content over social media and has proposed two efficient algorithms.
+                                      </p>
+
+                                        <strong>Contact on <a target="_blank" class="is-link" href="mailto:skaur_phd17@thapar.edu">skaur_phd17@thapar.edu</a></strong>
+
+                                    </div>
+                                    <nav class="level is-mobile">
+                                      <div class="level-left">
+                                        <a class="level-item">
+                                          <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                                        </a>
+                                        <a class="level-item">
+                                          <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                                        </a>
+                                        <a class="level-item">
+                                          <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                                        </a>
+                                      </div>
+                                    </nav>
                                   </div>
-                                </div>
+                                </article>
+
+                              </div>
+
+                            <div class="column is-full">
+
+                                <article class="media">
+                                  <figure class="media-left">
+                                    <p class="is-128x128">
+                                      <img src="{% static 'images/mexson.png' %}" alt="Mexson Fernandes" width="138px" height="181px" />
+                                    </p>
+                                  </figure>
+                                  <div class="media-content">
+                                    <div class="content">
+                                        <strong>Mexson Fernandes</strong> <small></small>
+                                        <br>
+                                      <p class="has-text-justified">
+
+                                        Loves innovation, different domain integration and 'learning by doing' method.  A self-taught developer who creates desktop, web and mobile applications.
+                                          Apart from software development, he loves to design hardware prototypes
+                                          using Arduino and Raspberry Pi. Currently working in domains like Data Science, Computer Vision, Blockchain and Internet of Things.
+                                      </p>
+
+                                        <strong>Connect on <a target="_blank" class="is-link" href="https://www.linkedin.com/in/mexsonfernandes/">LinkedIn.com:mexsonfernandes</a></strong>
+
+                                    </div>
+                                    <nav class="level is-mobile">
+                                      <div class="level-left">
+                                        <a class="level-item">
+                                          <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                                        </a>
+                                        <a class="level-item">
+                                          <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                                        </a>
+                                        <a class="level-item">
+                                          <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                                        </a>
+                                      </div>
+                                    </nav>
+                                  </div>
+                                </article>
+
                               </div>
                             </div>
+                            </div>
 
-                            <div class="column">
-                            
-                          </div>
+
                 </div>
-
 
     <footer class="footer" style="padding: 50px">
         <div class=" has-text-centered">
             <p>
-                <strong>Research project</strong> <a href="">IsItFake</a>.
+                This research is an outcome of the R&D work undertaken in the project under the Visvesvaraya PhD Scheme of Ministry of Electronics & Information Technology, Government of India, being implemented by Digital India Corporation (formerly Media Lab Asia). We gratefully acknowledge the support of NVIDIA Corporation with the donation of the Titan Xp GPU used for this research.
+    <br/><Br/>
             </p>
+                            <strong>&copy; IsItFake 2020</strong>
+
         </div>
     </footer>
 

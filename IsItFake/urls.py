@@ -18,8 +18,10 @@ from django.urls import path, include
 from django.conf import Settings
 from api.views import *
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('pwa.urls'))
+    path('', include('pwa.urls')),
 ]
 
