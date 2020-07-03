@@ -85,10 +85,17 @@
             </div>
         </div>
     </nav>
+<br/>
+    <div>
+         <h2 class="card    container subtitle has-text-justified" style="    padding: 20px;">
+                Definition: Clickbait refers to the content with a purpose to encourage visitors and attract attention by creating curiosity among users to click on a link to a particular web page.
+                <br/><br/>Read more: <a href="https://www.sciencedirect.com/science/article/abs/pii/S0957417420301755">Science Direct</a>
+             </h2>
+
+    </div>
 
     <section class="section" style=" padding-bottom: 128px;">
         <div class="container" style="max-width: 1068px;">
-
             <div class="columns">
               <div class="column">
                 <div class="card">
@@ -118,9 +125,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <span>
-                                <input class="button is-info" type="submit" value="Predict"/>
-                                <button class="button is-light" id="sample" onclick="document.getElementById('text-input').value = '19 Delicious ways to eat more candy corn this fall';">Check sample</button>
+                                <span style="display: inline-flex;">
+                                    <div class="navbar-item" >
+                                        <input class="button is-info" type="submit" value="Predict"/>
+                                   </div>
+
+                                 <div class="navbar-item is-hoverable">
+                                  <a class="navbar-link" >
+                                    Check Sample
+                                  </a>
+                                  <div class="navbar-dropdown" >
+                                      <a class="navbar-item" href="download/click1.jpg" onclick="document.getElementById('text-input').value = '19 Delicious ways to eat more candy corn this fall';">
+                                          Check sample
+                                      </a>
+                                      <a class="navbar-item" href="download/click2.png">Clickbait 2</a>
+                                      <a class="navbar-item" href="download/non1.png">Non-Clickbait 1</a>
+                                      <a class="navbar-item" href="download/non2.jpg">Non-Clickbait 2</a>
+                                  </div>
+                                </div>
                                 </span>
                             </form>
                         </div>
@@ -137,9 +159,9 @@
                             Use image file for clickbait prediction
                         </p>
                         <a href="#" class="card-header-icon" aria-label="more options">
-                      <span class="icon">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
-                      </span>
+                          <span class="icon">
+                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                          </span>
                         </a>
                     </header>
                     <div class="card-content">
@@ -169,8 +191,25 @@
                                     </div>
                                 </div>
                                 <span>
-                                    <input type="submit" class="button is-info " value="Check">
-                                    <button class="button is-light" id="download"><a href="{% url 'download' %}">Download</a</button>
+                                    <div class="navbar-item" style="display: inline-flex;">
+                                      <a class="">
+                                        <input type="submit" class="button is-info " value="Check">
+                                      </a>
+
+                                    <div class="navbar-item is-hoverable">
+                                      <a class="navbar-link" >
+                                        Download Sample
+                                      </a>
+
+                                      <div class="navbar-dropdown">
+                                          <a class="navbar-item" href="download/click1.jpg">Clickbait 1</a>
+                                          <a class="navbar-item" href="download/click2.png">Clickbait 2</a>
+                                          <a class="navbar-item" href="download/non1.png">Non-Clickbait 1</a>
+                                          <a class="navbar-item" href="download/non2.jpg">Non-Clickbait 2</a>
+                                      </div>
+                                    </div>
+                                </div>
+
                                 </span>
 
                             </form>

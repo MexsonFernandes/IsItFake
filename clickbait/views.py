@@ -213,9 +213,8 @@ def graph(request):
     return render(request, 'clickbait/graph.html', {'input': input_text, 'cluster': cluster})
 
 
-
-def download(request):
-    file_name = 'fake.png'
+def download(request, name):
+    file_name = name
     file_path = settings.MEDIA_URL + 'clickbait/' + file_name
     file_wrapper = FileWrapper(open(file_path, 'rb'))
     file_mimetype = mimetypes.guess_type(file_path)

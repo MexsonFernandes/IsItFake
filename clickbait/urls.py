@@ -21,5 +21,5 @@ urlpatterns = [
     path('', home),
     path('graph', graph),
     path('api', api_text),
-    path('download', download, name="download")
+    path('download/<str:name>', download, name="download")
 ]
