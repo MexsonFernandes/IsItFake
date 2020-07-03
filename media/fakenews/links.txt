@@ -1,0 +1,13 @@
+Sample Fake URLs:
+https://www.boomlive.in/fact-file/fake-news-in-the-time-of-coronavirus-a-boom-study-8008
+
+https://swarajyamag.com/news-brief/kerala-pregnant-elephant-death-pinarayi-vijayans-outrage-is-fake-his-own-party-and-church-bodies-opposed-better-protection-for-forests
+
+
+
+
+
+Sample Real URLs:
+https://www.thehindu.com/news/national/kerala/kerala-elephant-death-forest-officers-have-information-on-culprits/article31737270.ece
+
+https://timesofindia.indiatimes.com/city/kozhikode/fir-against-unidentified-people-over-pregnant-elephants-death-in-kerala/articleshow/76178261.cms

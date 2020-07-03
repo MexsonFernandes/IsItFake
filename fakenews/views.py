@@ -9,9 +9,14 @@ from fakenews.models import UserInputModel
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer, BrowsableAPIRenderer
 from rest_framework import generics
 from rest_framework.response import Response
+from django.http import JsonResponse, HttpResponse
 from fakenews.serializers import FakeNewsSerializer
 from rest_framework_api_key.models import APIKey
 # from rest_framework_api.key.permissions import HasAPIKey
+from wsgiref.util import FileWrapper
+import mimetypes
+import os
+from django.utils.encoding import smart_str
 
 
 def headline_text(url='', summary=False):
@@ -117,3 +122,18 @@ class FakeNewsViews(generics.CreateAPIView):
         # HasAPIKey.
         print('df')
         return (Response(context) if format == None else Response(context, template_name='fakenews/index.html'))
+
+
+
+
+def download(request, name):
+    file_name = name
+    file_path = settings.MEDIA_URL + 'fakenews/' + file_name
+    file_wrapper = FileWrapper(open(file_path, 'rb'))
+    file_mimetype = mimetypes.guess_type(file_path)
+    response = HttpResponse(file_wrapper, content_type=file_mimetype)
+    response['X-Sendfile'] = file_path
+    response['Content-Length'] = os.stat(file_path).st_size
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(file_name)
+    print(response)
+    return response

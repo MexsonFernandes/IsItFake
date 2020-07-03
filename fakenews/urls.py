@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import home, FakeNewsViews
+from .views import home, FakeNewsViews, download
 
 urlpatterns = [
     # path('', FakeNewsViews.as_view()),
-    path('', home)
+    path('', home),
+    path('download/<str:name>', download, name="download")
     # path('<str:param>/', FakeNewsViews.as_view()),
 ]
