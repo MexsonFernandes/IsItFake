@@ -59,6 +59,10 @@ def home(request):
             }
             if len(request.POST.get('text-input', '')) > 0:
                 text = request.POST.get('text-input', '')
+                if len(text) < 30:
+                    context['msg'] = 'error'
+                    context['error'] = 'Text length should be more than 30 characters'
+                    return render(request, 'fakenews/index.html', context)
                 out = predict(text)
                 context['out'] = 'fake' if out == 1 else 'real'
                 context['input'] = text
@@ -81,13 +85,14 @@ def home(request):
                     url=url
                 )
                 obj.save()
-
         except Exception as e:
             print(str(e))
             context['msg'] = 'error'
             print(traceback.print_exc())
             if 'text-input' in request.POST:
                 context['error'] = 'Error in parsing data'
+                if len(request.POST.get('text-input', '')) < 30:
+                    context['error'] = 'Text length should be more than 30 characters'
             else:
                 context['error'] = 'Link is incorrect'
     return render(request, 'fakenews/index.html', context)
