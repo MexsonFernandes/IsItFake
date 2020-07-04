@@ -65,7 +65,7 @@
         <div class="navbar-brand has-text-centered">
 
             <a class="navbar-item" href="">
-                <h2 class="title has-text-centered">FaceSwap</h2>
+                <h2 class="title has-text-centered">DeepFake Face Swap Detection</h2>
 
             </a>
 
@@ -88,7 +88,7 @@
 
     <br/>
     <div>
-         <h2 class="card    container subtitle has-text-justified" style="    padding: 20px;">
+         <h2 class="card    container subtitle has-text-justified" style="border-radius: 10px;        padding: 20px;">
              Definition: Deepfake (a bag of ‘deeplearning’ and ‘fake’) is a technique for human image synthesis based on artificial  intelligence, which is used to superimpose the existing (source) images or videos onto destination images or videos using Neural Networks.
 
              <br/><br/>Read more: <a href="https://www.spiedigitallibrary.org/journals/Journal-of-Electronic-Imaging/volume-29/issue-3/033013/Deepfakes--temporal-sequential-analysis-to-detect-face-swapped-video/10.1117/1.JEI.29.3.033013.short?SSO=1">
@@ -101,7 +101,7 @@ SPIE Digital Library</a>
         <div class="container">
             <h2 class="subtitle">
                 <div class="card notification">
-                    <header class="card-header is-info notification ">
+                    <header class="card-header is-dark notification ">
                         <p class="card-header-title has-text-white has-text-centered">
                             Verify DeepFake video content
                         </p>
@@ -142,7 +142,7 @@ SPIE Digital Library</a>
                                         <div class="field">
                                             <p class="control">
                                                 <input  name="url"
-                                                    class="input is-info"
+                                                    class="input is-dark"
                                                     id="url"
                                                     placeholder="eg. https://www.youtube.com/watch?v=NLb-gZNKzT8"
                                                     />
@@ -160,7 +160,7 @@ SPIE Digital Library</a>
                                     <div class="field-body">
                                         <div class="field">
                                             <input  name="start_sec"
-                                                    class="input is-info"
+                                                    class="input is-dark"
                                                     id="url"
                                                     type="number"
                                                     placeholder="eg. 50"
@@ -177,7 +177,7 @@ SPIE Digital Library</a>
                                         <div class="field">
                                         <p class="control">
                                              <input  name="total_sec"
-                                                    class="input is-info"
+                                                    class="input is-dark"
                                                     id="url"
                                                     type="number"
                                                     placeholder="eg. 10"
@@ -187,7 +187,7 @@ SPIE Digital Library</a>
                                     </div>
                                 </div>
 
-                                <button class="button is-info">Submit</button>
+                                <button class="button is-dark">Submit</button>
                                 <span class="button is-light" onclick="document.getElementById('text-input').value = '';
                                                                        document.getElementById('url').value = '';">Reset</span>
 
@@ -234,7 +234,7 @@ SPIE Digital Library</a>
     <div id="pop-up" class="modal is-active">
         <div class="modal-background"></div>
         <div class="modal-content">
-            <article class="message is-info">
+            <article class="message is-dark">
                 <div class="message-header">
                     <p>Output</p>
                 </div>
@@ -278,10 +278,10 @@ SPIE Digital Library</a>
     </div>
     {% endif %}
 
-    <footer class="footer is-info" style="padding: 50px">
+    <footer class="footer is-dark" style="padding: 30px">
         <div class=" has-text-centered">
             <p>
-                <strong>Research project</strong> on <a href="">FaceSwap</a>.
+                <strong>Research project</strong> on <a href="">FaceSwap</a>
             </p>
         </div>
     </footer>

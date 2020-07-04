@@ -155,7 +155,8 @@ def home(request):
                 start = s.find('(PERSON', nn) + 8
                 end = s.find(')', start)
                 r = str(s[start:end])
-                r = r.replace('/NNP', '').replace('/NN', '')
+                r = r.replace('/NNP', '')\
+                    .replace('/NN', '')
             else:
                 r = "Unknown"
             result = result.replace(r, '')
@@ -167,9 +168,9 @@ def home(request):
                 'v': st
             }
             obj = UserInputModel(image=request.FILES["file"],
-                quote=res,
-                author=r,
-                output=st)
+                            quote=res,
+                            author=r,
+                            output=st)
             obj.save()
             return render(request, "quotexaminer/disp.html", context=context)
         else:

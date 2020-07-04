@@ -56,6 +56,7 @@ pyasn1==0.4.7
 pyasn1-modules==0.2.7
 python-dateutil==2.8.1
 pytube==9.5.2
+pytube3==9.6.4
 pytz==2019.3
 PyYAML==5.1.2
 requests==2.22.0
@@ -73,6 +74,7 @@ tensorflow-estimator==2.0.1
 termcolor==1.1.0
 tinysegmenter==0.3
 tldextract==2.2.2
+typing-extensions==3.7.4.2
 uritemplate==3.0.0
 urllib3==1.25.7
 Werkzeug==0.16.0

@@ -16,7 +16,7 @@ from wsgiref.util import FileWrapper
 import mimetypes
 from django.utils.encoding import smart_str
 from deepfakes.models import UserInputModel
-
+import traceback
 
 global classifier
 classifier = tf.keras.models.load_model(settings.MEDIA_URL + 'faceswap/' + 'MODEL.h5')
@@ -65,6 +65,7 @@ def download(request, file_name):
     print(response)
     return response
 
+
 def create_frames_for_slots(path, start_sec, total_sec):
     # count frame
     video = cv2.VideoCapture(path)
@@ -96,6 +97,7 @@ def create_frames_for_slots(path, start_sec, total_sec):
             if not frame is None:
                 cv2.imwrite(frame_path + str(frame_id) + ".jpg", frame)
     return frame_path
+
 
 def home(request):
     context = {}
@@ -185,6 +187,8 @@ def home(request):
                 )
                 obj.save()
     except Exception as e:
+        traceback.print_exc()
+        print(str(e))
         context = {
             "error": str('Server is bit upset today!')
         }
