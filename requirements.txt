@@ -55,8 +55,7 @@ psycopg2==2.8.4
 pyasn1==0.4.7
 pyasn1-modules==0.2.7
 python-dateutil==2.8.1
-pytube==9.5.2
-pytube3==9.6.4
+pytube3 @ git+https://gitlab.com/obuilds/public/pytube@10c57109f87fe864d8f38bbc8d76941e695de93a
 pytz==2019.3
 PyYAML==5.1.2
 requests==2.22.0

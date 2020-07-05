@@ -186,6 +186,8 @@ def home(request):
                     url = url
                 )
                 obj.save()
+                print(context)
+                return render(request, 'deepfakes/index.html', context)
     except Exception as e:
         traceback.print_exc()
         print(str(e))
