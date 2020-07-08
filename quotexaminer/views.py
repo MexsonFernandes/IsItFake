@@ -174,7 +174,7 @@ def home(request):
             obj.save()
             return render(request, "quotexaminer/disp.html", context=context)
         else:
-            return render(request, 'quotexaminer/index.html')
+            return render(request, 'quotexaminer/disp.html')
     except Exception as e:
         print(str(e))
         return render(request, 'quotexaminer/index.html')
