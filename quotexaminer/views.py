@@ -160,7 +160,7 @@ def home(request):
             else:
                 r = "Unknown"
             result = result.replace(r, '')
-            res = language_check.correct(result, tool.check(result))
+            res = result1#language_check.correct(result, tool.check(result))
             context = {
                 'image_name': 'quotexaminer/upload/' + filename,
                 'q': res,
