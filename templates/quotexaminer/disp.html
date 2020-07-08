@@ -51,24 +51,32 @@ body, html {
 </style>
 </head>
 <body>
-<div class="bg" align="center">
+    <nav class="navbar  " role="navigation" aria-label="main navigation">
+        <div class="navbar-brand has-text-centered">
 
-  <br><br>
-     <p style="font-size: 2em;" class="text-decor">{{v}}</p>
-    
-    <h1 class="text-decor">QUOTE:</h1>
-       <h2 align="center" class="text-decor"> "{{q}}" </h2>
-    <h3  class="text-decor">Author: {{a}}</h3>
-    <br><br>
-   <img src="{% static image_name %}" width="500" height="250"/>
-  
+            <a style="color: black" class="navbar-item" href="">
+                <h2 class="title has-text-centered">QuotExaminer</h2>
 
-    
-  </div>
-  <style>
-    .text-decor {
-        color: black;
-    }
-  </style>
+            </a>
+        </div>
+    </nav>
+    <div class="bg" align="center">
+
+          <br><br>
+             <p style="font-size: 2em;" class="text-decor">{{v}}</p>
+
+            <h1 class="text-decor">QUOTE:</h1>
+               <h2 align="center" class="text-decor"> "{{q}}" </h2>
+            <h3  class="text-decor">Author: {{a}}</h3>
+            <br><br>
+           <img src="{% static image_name %}" width="500" height="250"/>
+
+    </div>
+
+    <style>
+        .text-decor {
+            color: black;
+        }
+    </style>
 </body>
 </html>
