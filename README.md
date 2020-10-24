@@ -50,5 +50,6 @@ Django based app containing QuotExaminer, FakeNews, FaceSwap and Clickbait detec
 ## Request on server with API key
 Client request must have the API key in the POST data:
 
-    `'api_key': '***********'`
+    api_key: ***********
+   
 Test API key: Qr1iZXvm.Y71IaYQZ372mLxyjmIFxtZYmGMR9iBiU
