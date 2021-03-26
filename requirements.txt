@@ -57,7 +57,7 @@ pyasn1-modules==0.2.7
 python-dateutil==2.8.1
 pytube3 @ git+https://gitlab.com/obuilds/public/pytube@10c57109f87fe864d8f38bbc8d76941e695de93a
 pytz==2019.3
-PyYAML==5.1.2
+PyYAML==5.4
 requests==2.22.0
 requests-file==1.4.3
 requests-oauthlib==1.3.0
