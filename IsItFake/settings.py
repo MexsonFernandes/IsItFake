@@ -93,11 +93,11 @@ WSGI_APPLICATION = 'IsItFake.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'iaxddnvk',
-        'USER': 'iaxddnvk',
-        'PASSWORD': 'd3q5Q9QyHFwjFqtMe6qWlcUrNQ-RK1W0',
-        'HOST': 'satao.db.elephantsql.com',
-        'PORT': '5432',
+        'NAME': os.getenv('DB_NAME', 'isitfake'),
+        'USER': os.getenv('DB_USER', 'isitfake'),
+        'PASSWORD': os.getenv('DB_PASS', ''),
+        'HOST': os.getenv('DB_HOST', ''),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
@@ -142,7 +142,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-MEDIA_URL = os.path.join(BASE_DIR, "media/")
+MEDIA_URL = os.path.join(BASE_DIR, "media")
 
 ROOT_HOSTCONF = 'IsItFake.hosts'
 DEFAULT_HOST = 'www'

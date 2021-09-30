@@ -160,7 +160,7 @@ def home(request):
             else:
                 print("url")
                 url = request.POST.get("url", "")
-                target = os.path.join(settings.STATICFILES_DIRS[0], 'faceswap/upload')
+                target = settings.MEDIA_URL + 'faceswap/upload'
                 destination = target + '/' + tempfile.mkstemp()[1].split('/')[2]
                 os.mkdir(destination)
                 destination = download_video_from_url(url, destination)
