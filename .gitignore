@@ -30,3 +30,5 @@ tests/report/
 
 db.sqlite3
 .env
+
+IsItFake/google.json

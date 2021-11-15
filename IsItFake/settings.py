@@ -92,12 +92,8 @@ WSGI_APPLICATION = 'IsItFake.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'isitfake'),
-        'USER': os.getenv('DB_USER', 'isitfake'),
-        'PASSWORD': os.getenv('DB_PASS', ''),
-        'HOST': os.getenv('DB_HOST', ''),
-        'PORT': os.getenv('DB_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
     }
 }
 
@@ -142,21 +138,26 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-MEDIA_URL = os.path.join(BASE_DIR, "media")
+MEDIA_URL = os.path.join(BASE_DIR, "media") + '/'
 
 ROOT_HOSTCONF = 'IsItFake.hosts'
 DEFAULT_HOST = 'www'
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "IsItFake/vision.json"
-SERVICE = build("customsearch", "v1",
-                developerKey="AIzaSyAaJ8-PEOVH4AiNEZ2KcS24h48tPIkrmdY")
 
-CSRF_TRUSTED_ORIGINS = ['clickbait.isitfake.co.in',
-                        'www    .isitfake.co.in',
-                        'isitfake.co.in',
-                        'quotexaminer.isitfake.co.in',
-                        'fakenews.isitfake.co.in'
-                        ]
+SERVICE = build(
+    "customsearch",
+    "v1",
+    developerKey=os.environ.get("GOOGLE_VISION_KEY")
+)
+
+CSRF_TRUSTED_ORIGINS = [
+    'clickbait.isitfake.co.in',
+    'www.isitfake.co.in',
+    'isitfake.co.in',
+    'quotexaminer.isitfake.co.in',
+    'fakenews.isitfake.co.in'
+]
 CORS_ORIGIN_WHITELIST = (
     'https://clickbait.isitfake.co.in',
     'https://isitfake.co.in',
@@ -173,9 +174,17 @@ PWA_APP_DISPLAY = 'standalone'
 PWA_APP_SCOPE = '/'
 PWA_APP_ORIENTATION = 'portrait'
 PWA_APP_START_URL = '/'
-PWA_APP_ICONS = [{'src': '/static/icon.png', 'sizes': '160x160'}]
-PWA_APP_SPLASH_SCREEN = [{'src': '/static/images/icons/splash-640x1136.png',
-                          'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'}]
+PWA_APP_ICONS = [
+    {
+        'src': '/static/icon.png', 'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/images/icons/splash-640x1136.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
 
