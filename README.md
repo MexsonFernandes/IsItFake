@@ -16,8 +16,8 @@ Django based app containing QuotExaminer, FakeNews, FaceSwap and Clickbait detec
 
 ## Requirements
 
-* Google vision API key
-* Google vision
+* Google Vision API key (add to .env)
+* Google Service Account file (copy to `<root>/IsItFake/google.json`)
 
 ## How to contribute or use?
 
@@ -53,4 +53,12 @@ Client request must have the API key in the POST data:
 
     api_key: ***********
 
-Test API key: Qr1iZXvm.Y71IaYQZ372mLxyjmIFxtZYmGMR9iBiU
+## Host on bare metal
+
+Install authbind
+
+`sudo apt-get install authbind`
+
+Run server on port 80 using Gunicorn
+
+`authbind gunicorn IsItFake.wsgi -b 0.0.0.0:80`

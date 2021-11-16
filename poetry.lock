@@ -529,6 +529,18 @@ pep8 = ["flake8"]
 tests = ["pandas", "pillow", "tensorflow", "keras", "pytest", "pytest-xdist", "pytest-cov"]
 
 [[package]]
+name = "language-tool-python"
+version = "2.6.1"
+description = "Checks grammar using LanguageTool."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests = "*"
+tqdm = "*"
+
+[[package]]
 name = "lxml"
 version = "4.6.4"
 description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
@@ -1092,7 +1104,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<4"
-content-hash = "5efff5ce38f8366d46a53f6e3a5fb2652371d06a5b3f7e7e901e78633ebac231"
+content-hash = "28de402fc82212bbe342d2b8fe4d23cdfd89851d195d3df79ef7a4814faf59d1"
 
 [metadata.files]
 absl-py = [
@@ -1325,6 +1337,10 @@ keras = [
 keras-preprocessing = [
     {file = "Keras_Preprocessing-1.1.2-py2.py3-none-any.whl", hash = "sha256:7b82029b130ff61cc99b55f3bd27427df4838576838c5b2f65940e4fcec99a7b"},
     {file = "Keras_Preprocessing-1.1.2.tar.gz", hash = "sha256:add82567c50c8bc648c14195bf544a5ce7c1f76761536956c3d2978970179ef3"},
+]
+language-tool-python = [
+    {file = "language_tool_python-2.6.1-py3-none-any.whl", hash = "sha256:31592e0b288f148a51f8264821d3b74dec74c8b2d6329bbc292a88ee5b4b341e"},
+    {file = "language_tool_python-2.6.1.tar.gz", hash = "sha256:2ca9839ed740c18e815d5ee707df7dad9bbcb4133c85d24efe1d1b0c2c78e3e5"},
 ]
 lxml = [
     {file = "lxml-4.6.4-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:bbf2dc330bd44bfc0254ab37677ec60f7c7ecea55ad8ba1b8b2ea7bf20c265f5"},

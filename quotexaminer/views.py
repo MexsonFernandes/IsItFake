@@ -144,9 +144,9 @@ def home(request):
                 result1 = '\n'.join(number_of_sentences[0:len(number_of_sentences) - 1])
             else:
                 result1 = result
-            import language_check
-            tool = language_check.LanguageTool('en-US')
-            result1 = language_check.correct(result1, tool.check(result1))
+            import language_tool_python
+            tool = language_tool_python.LanguageTool('en-US')
+            result1 = language_tool_python.correct(result1, tool.check(result1))
             st = verify_quote(result1)
             # status = "L"
             nn = len(result1)
@@ -160,7 +160,7 @@ def home(request):
             else:
                 r = "Unknown"
             result = result.replace(r, '')
-            res = result1#language_check.correct(result, tool.check(result))
+            res = result1#language_tool_python.correct(result, tool.check(result))
             context = {
                 'image_name': 'quotexaminer/upload/' + filename,
                 'q': res,

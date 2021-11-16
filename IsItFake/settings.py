@@ -143,7 +143,7 @@ MEDIA_URL = os.path.join(BASE_DIR, "media") + '/'
 ROOT_HOSTCONF = 'IsItFake.hosts'
 DEFAULT_HOST = 'www'
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "IsItFake/vision.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "IsItFake/google.json"
 
 SERVICE = build(
     "customsearch",
