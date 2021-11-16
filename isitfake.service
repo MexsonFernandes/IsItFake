@@ -1,0 +1,11 @@
+[Unit]
+Description=isitfake server
+
+[Service]
+User=$USER
+WorkingDirectory=$HOME/IsItFake
+ExecStart=/bin/bash -c 'poetry shell && authbind gunicorn IsItFake.wsgi:application -b 0.0.0.0:80'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
