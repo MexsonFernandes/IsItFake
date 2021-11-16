@@ -74,7 +74,7 @@ def create_frames_for_slots(path, start_sec, total_sec):
     property_id = int(cv2.CAP_PROP_FRAME_COUNT)
     count = int(cv2.VideoCapture.get(video, property_id))
     # create frames
-    frame_path = path.replace(".mp4", "") + "/"
+    frame_path = path.replace("." + path.split(".")[1], "") + "/"
     os.mkdir(frame_path)
     frame_count_user = 0
     print('d')
@@ -161,7 +161,7 @@ def home(request):
                 print("url")
                 url = request.POST.get("url", "")
                 target = settings.MEDIA_URL + 'faceswap/upload'
-                destination = target + '/' + tempfile.mkstemp()[1].split('/')[2]
+                destination = os.path.join(target, tempfile.mkstemp()[1].split('/')[2])
                 os.mkdir(destination)
                 destination = download_video_from_url(url, destination)
                 print(url)
