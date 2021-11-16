@@ -765,7 +765,7 @@ six = ">=1.5"
 
 [[package]]
 name = "pytube"
-version = "10.9.3"
+version = "11.0.1"
 description = "Python 3 library for downloading YouTube Videos."
 category = "main"
 optional = false
@@ -1104,7 +1104,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<4"
-content-hash = "28de402fc82212bbe342d2b8fe4d23cdfd89851d195d3df79ef7a4814faf59d1"
+content-hash = "dda203acb0ec2f4d77cc81956ef405ca6b3f3a88309ff9d89b2a695d6900660e"
 
 [metadata.files]
 absl-py = [
@@ -1707,8 +1707,8 @@ python-dateutil = [
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
 ]
 pytube = [
-    {file = "pytube-10.9.3-py3-none-any.whl", hash = "sha256:43888e5f6f880cf3f42d4a7d24dd8570749b987f5cb853cf00f0826284f1bd8e"},
-    {file = "pytube-10.9.3.tar.gz", hash = "sha256:1b9975efe3ce9a7c52d073f7bc1ad1995d964e6f0140ed5b90ceaa8450efee5f"},
+    {file = "pytube-11.0.1-py3-none-any.whl", hash = "sha256:d4dfea7394d7662edac3831432b349b2afac984e0d0bc4bdb611ec1f3fc16318"},
+    {file = "pytube-11.0.1.tar.gz", hash = "sha256:47643a6ff553cbc4d6be748ff14c9c45f79984e15005adff25d62b18110abe43"},
 ]
 pytz = [
     {file = "pytz-2021.3-py2.py3-none-any.whl", hash = "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c"},
