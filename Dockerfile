@@ -1,4 +1,4 @@
-FROM python:3.7.1-alpine as python-base
+FROM nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04 as python-base
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -14,12 +14,16 @@ ENV PYTHONUNBUFFERED=1 \
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
-RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev make
+RUN apt update \
+    && apt install -y gcc python3-dev musl-dev make \
+    python3.7 python3-pip automake g++ subversion
 
-RUN pip3 install nltk
-RUN pip3 install psycopg2-binary
-RUN python -m nltk.downloader punkt words averaged_perceptron_tagger maxent_ne_chunker
+RUN ln -s /usr/bin/python3.7 /usr/bin/python
+RUN ln -s /usr/bin/pip3 /usr/bin/pip
+
+RUN apt -y install libpq-dev \
+    && pip install psycopg2 nltk
+RUN python3 -m nltk.downloader punkt words averaged_perceptron_tagger maxent_ne_chunker
 
 ###############################################
 # Builder Image
@@ -29,20 +33,12 @@ FROM python-base as builder-base
 ENV POETRY_VERSION=1.1.0
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
-RUN apk add libressl-dev \
-    libffi-dev
-RUN pip3 install pynacl 
+RUN apt install 
+RUN pip install pynacl 
 ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
-RUN pip install cryptography==3.4.6 
-RUN pip3 install setuptools_rust docker-compose
-RUN pip3 install --no-cache-dir poetry==${POETRY_VERSION} && \
-    apk del \
-    curl \
-    gcc \
-    libressl-dev \
-    libffi-dev
-RUN apk add automake g++ subversion
-RUN apk add krb5-libs
+# RUN pip install setuptools_rust
+# RUN pip install cryptography==3.4.6 
+RUN pip install --no-cache-dir poetry==${POETRY_VERSION}
 
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
