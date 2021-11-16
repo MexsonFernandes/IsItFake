@@ -146,7 +146,8 @@ def home(request):
                 result1 = result
             import language_tool_python
             tool = language_tool_python.LanguageTool('en-US')
-            result1 = language_tool_python.correct(result1, tool.check(result1))
+            new_text = tool.check(result1)
+            result1 = tool.correct(new_text)
             st = verify_quote(result1)
             # status = "L"
             nn = len(result1)
