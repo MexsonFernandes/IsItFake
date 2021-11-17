@@ -1,0 +1,19 @@
+upstream web1-balanced {
+    server 127.0.0.1:8000;
+}
+server {
+    listen 80;
+    server_name isitfake.co.in www.isitfake.co.in;
+    location /media  {
+        alias /home/isitfakeapp/IsItFake/media;
+    }
+    location /static {
+        alias /home/isitfakeapp/IsItFake/static;
+    }
+    location / {
+        proxy_pass http://web1-balanced;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        add_header       X-Upstream      $upstream_addr;
+    }
+}
