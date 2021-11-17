@@ -245,7 +245,9 @@ SPIE Digital Library</a>
                        {% if 'ake' in result %}
                        Score: <h4 class="output">{{score}}%</h4>
                        {% endif%}
+                       {% if len(frames) > 0 %}
                        Frames:<br/>
+                       {% endif%}
                        {% for i in  frames %}
                        <img width="200px" height="180px" src="{{i}}"/>
                        {% endfor %}
