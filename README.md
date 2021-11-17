@@ -64,3 +64,9 @@ Run server on port 80 using Gunicorn
 `authbind gunicorn IsItFake.wsgi -b 0.0.0.0:80`
 
 Follow [this link](https://www.shubhamdipt.com/blog/how-to-create-a-systemd-service-in-linux/) to create the service file.
+
+## Helpers
+
+* Export requirements.txt file
+
+    `poetry export -f requirements.txt --output requirements.txt --without-hashes`
